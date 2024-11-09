@@ -1,16 +1,10 @@
 {
   "compilerOptions": {
-    "module": "CommonJS", // Quy định output module được sử dụng
-    "moduleResolution": "node", // Quy trình giải quyết module
-    "target": "ES6", // Target output cho code
-    "outDir": "dist", // Đường dẫn output cho thư mục build
-    "esModuleInterop": true, // Hỗ trợ tương thích với CommonJS
-    "strict": true, // Kích hoạt tất cả các tùy chọn kiểm tra kiểu chặt chẽ
-    "skipLibCheck": true, // Bỏ qua kiểm tra kiểu trong các file .d.ts
-    "baseUrl": ".", // Đường dẫn base cho các import
-    "paths": {
-      "~/*": ["src/*"] // Định nghĩa alias cho import
-    }
+    "target": "ES6", // Cho phép phiên dịch code typescript sang kiển ES6
+    "module": "CommonJS", //CommonJS là tiêu chuân được sử dụng trong Node.js để làm việc với các module
+    "removeComments": true, // xoá comments khi bien dịch sang file js
+    "esModuleInterop": true, // Dùng được từ khoá import thay cho require
+    "outDir": "dist" //Bien dich vao thu muc js
   },
   "ts-node": {
     "require": ["tsconfig-paths/register"]

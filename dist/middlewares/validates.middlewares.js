@@ -13,14 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateSalaryStructureValidator = exports.createSalaryStructureValidator = exports.updateUserValidator = exports.createUserValidator = exports.editRoleValidator = exports.createRoleValidator = exports.loginValidator = exports.createSalaryValidator = exports.UpdateSalaryValidator = void 0;
-const validation_1 = require("~/utils/validation");
-const enums_1 = require("~/constants/enums");
-const database_service_1 = __importDefault(require("~/services/database.service"));
-const messages_1 = require("~/constants/messages");
+const validation_1 = require("../utils/validation");
+const enums_1 = require("../constants/enums");
+const database_service_1 = __importDefault(require("../services/database.service"));
+const messages_1 = require("../constants/messages");
 const mongodb_1 = require("mongodb");
 const express_validator_1 = require("express-validator");
-const messages_2 = require("~/constants/messages");
-const crypto_1 = require("~/utils/crypto");
+const messages_2 = require("../constants/messages");
+const crypto_1 = require("../utils/crypto");
 // Validator cho cập nhật phân lương
 exports.UpdateSalaryValidator = (0, validation_1.validate)((0, express_validator_1.checkSchema)({
     ten: {

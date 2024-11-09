@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
-import UsersService from '~/services/users.service'
-import { UserPayload } from '~/models/requests/user.request'
-import HTTP_STATUS from '~/constants/httpStatus'
-import { hashPassword } from '~/utils/crypto'
-import User from '~/models/schemas/user.model'
-import { USER_MESSAGES } from '~/constants/messages'
-import databaseService from '~/services/database.service'
+import UsersService from '../../services/users.service'
+import { UserPayload } from '../../models/requests/user.request'
+import HTTP_STATUS from '../../constants/httpStatus'
+import { hashPassword } from '../../utils/crypto'
+import User from '../../models/schemas/user.model'
+import { USER_MESSAGES } from '../../constants/messages'
+import databaseService from '../../services/database.service'
 export const PostCreateUsers = async (req: Request<any, any, UserPayload, any>, res: Response) => {
   const data = { ...req.body }
   data.password = hashPassword(data.password)

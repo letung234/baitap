@@ -37,11 +37,11 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const method_override_1 = __importDefault(require("method-override"));
 const path_1 = __importDefault(require("path"));
 const moment = __importStar(require("moment"));
-const dir_1 = require("~/constants/dir");
-const error_middleware_1 = require("~/middlewares/error.middleware");
-const config_1 = require("~/constants/config");
+const dir_1 = require("./constants/dir");
+const error_middleware_1 = require("./middlewares/error.middleware");
+const config_1 = require("./constants/config");
 const file_1 = require("./utils/file");
-const authenticateToken_1 = __importDefault(require("~/middlewares/authenticateToken"));
+const authenticateToken_1 = __importDefault(require("./middlewares/authenticateToken"));
 (0, file_1.initFolder)();
 // Kết nối với cơ sở dữ liệu
 database_service_1.default.connect();

@@ -14,11 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = require("dotenv");
 const mongodb_1 = require("mongodb");
-const jwt_1 = require("~/utils/jwt");
-const database_service_1 = __importDefault(require("~/services/database.service"));
-const messages_1 = require("~/constants/messages");
-const users_service_1 = __importDefault(require("~/services/users.service"));
-const httpStatus_1 = __importDefault(require("~/constants/httpStatus"));
+const jwt_1 = require("../utils/jwt");
+const database_service_1 = __importDefault(require("../services/database.service"));
+const messages_1 = require("../constants/messages");
+const users_service_1 = __importDefault(require("../services/users.service"));
+const httpStatus_1 = __importDefault(require("../constants/httpStatus"));
 (0, dotenv_1.config)();
 const authenticateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;

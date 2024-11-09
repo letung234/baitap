@@ -12,16 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const file_1 = require("~/utils/file");
-const dir_1 = require("~/constants/dir");
+const file_1 = require("../utils/file");
+const dir_1 = require("../constants/dir");
 const sharp_1 = __importDefault(require("sharp"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
-const enums_1 = require("~/constants/enums");
+const enums_1 = require("../constants/enums");
 const promises_1 = __importDefault(require("fs/promises"));
 const cloudinary_1 = __importDefault(require("cloudinary"));
 const dotenv_1 = require("dotenv");
-const config_1 = require("~/constants/config");
+const config_1 = require("../constants/config");
 (0, dotenv_1.config)();
 cloudinary_1.default.v2.config({
     cloud_name: config_1.envConfig.cloudinary.cloudName,

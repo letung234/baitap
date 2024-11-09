@@ -6,7 +6,7 @@
     "dev": "cross-env NODE_ENV=development npx nodemon",
     "dev:stag": "NODE_ENV=staging npx nodemon",
     "dev:prod": "NODE_ENV=production npx nodemon",
-    "build": "rimraf ./dist && tsc && node copy-dir.js",
+    "build": "rimraf ./dist && tsc && tsc-alias && node copy-dir.js",
     "start": "cross-env NODE_ENV=development node dist/index.js",
     "start:stag": "cross-env NODE_ENV=staging node dist/index.js",
     "start:prod": "cross-env NODE_ENV=production node dist/index.js",
@@ -53,7 +53,7 @@
     "tailwindcss": "^3.4.14",
     "tinymce": "^6.8.5",
     "ts-node": "^10.9.2",
-    "tsc-alias": "^1.8.7",
+    "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.6.3"
   },

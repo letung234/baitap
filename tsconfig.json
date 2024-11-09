@@ -3,18 +3,25 @@
     "module": "CommonJS", // Quy định output module được sử dụng
     "moduleResolution": "node", // Quy trình giải quyết module
     "target": "ES6", // Target output cho code
-    "outDir": "dist", // Đường dẫn output cho thư mục build
+    "outDir": "./dist", // Đường dẫn output cho thư mục build
     "esModuleInterop": true, // Hỗ trợ tương thích với CommonJS
     "strict": true, // Kích hoạt tất cả các tùy chọn kiểm tra kiểu chặt chẽ
     "skipLibCheck": true, // Bỏ qua kiểm tra kiểu trong các file .d.ts
     "baseUrl": ".", // Đường dẫn base cho các import
     "paths": {
       "~/*": ["src/*"] // Định nghĩa alias cho import
-    }
+    },
+    "resolveJsonModule": true, // Hỗ trợ import các file JSON
+    "forceConsistentCasingInFileNames": true, // Đảm bảo tên file phân biệt chữ hoa chữ thường
+    "allowJs": true, // Cho phép biên dịch các file JavaScript nếu cần thiết
+    "isolatedModules": true, // Đảm bảo mỗi file được biên dịch độc lập
+    "skipDefaultLibCheck": true, // Bỏ qua kiểm tra thư viện mặc định
+    "noEmitOnError": true // Không tạo output nếu có lỗi biên dịch
   },
   "ts-node": {
-    "require": ["tsconfig-paths/register"]
+    "require": ["tsconfig-paths/register"] // Đăng ký tsconfig-paths để xử lý alias trong ts-node
   },
   "files": ["src/type.d.ts"], // Các file dùng để định nghĩa global type
-  "include": ["src/**/*"] // Bao gồm tất cả file trong thư mục src
+  "include": ["src/**/*"], // Bao gồm tất cả file trong thư mục src
+  "exclude": ["node_modules", "dist"] // Loại trừ thư mục node_modules và dist khỏi quá trình biên dịch
 }

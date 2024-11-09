@@ -10,8 +10,8 @@ exports.signAccessAndRefreshToken = signAccessAndRefreshToken;
 exports.decodeRefreshToken = decodeRefreshToken;
 const dotenv_1 = require("dotenv");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const enums_1 = require("~/constants/enums");
-const config_1 = require("~/constants/config");
+const enums_1 = require("../constants/enums");
+const config_1 = require("../constants/config");
 (0, dotenv_1.config)();
 const signToken = ({ payload, privateKey, options = {
     algorithm: 'HS256'

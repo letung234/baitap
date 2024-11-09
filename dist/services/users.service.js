@@ -13,12 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const jwt_1 = require("../utils/jwt");
-const database_service_1 = __importDefault(require("~/services/database.service"));
+const database_service_1 = __importDefault(require("../services/database.service"));
 const mongodb_1 = require("mongodb");
-const refreshtoken_model_1 = __importDefault(require("~/models/schemas/refreshtoken.model"));
-const user_model_1 = __importDefault(require("~/models/schemas/user.model"));
-const config_1 = require("~/constants/config");
-const jwt_2 = require("~/utils/jwt");
+const refreshtoken_model_1 = __importDefault(require("../models/schemas/refreshtoken.model"));
+const user_model_1 = __importDefault(require("../models/schemas/user.model"));
+const config_1 = require("../constants/config");
+const jwt_2 = require("../utils/jwt");
 class Service {
     refreshToken(_a) {
         return __awaiter(this, arguments, void 0, function* ({ user_id, refresh_token, exp }) {

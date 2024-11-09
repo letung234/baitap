@@ -13,9 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.permissionsPatch = exports.ApiRoleDeleteController = exports.ApiRoleEditController = exports.ApiRoleCreateController = void 0;
-const role_services_1 = __importDefault(require("~/services/role.services"));
-const httpStatus_1 = __importDefault(require("~/constants/httpStatus"));
-const messages_1 = require("~/constants/messages");
+const role_services_1 = __importDefault(require("../../services/role.services"));
+const httpStatus_1 = __importDefault(require("../../constants/httpStatus"));
+const messages_1 = require("../../constants/messages");
 const ApiRoleCreateController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description } = req.body;
     yield role_services_1.default.createRole({

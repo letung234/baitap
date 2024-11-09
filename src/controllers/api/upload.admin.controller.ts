@@ -1,6 +1,6 @@
-import mediasService from '~/services/medias.service'
+import mediasService from '../../services/medias.service'
 import { Request, Response } from 'express'
-import HTTP_STATUS from '~/constants/httpStatus'
+import HTTP_STATUS from '../../constants/httpStatus'
 export const upload = async (req: Request, res: Response) => {
   const result = await mediasService.uploadImage(req)
   console.log(result)

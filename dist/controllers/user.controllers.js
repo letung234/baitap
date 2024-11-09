@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EditUserController = exports.CreateUserController = exports.GetUserController = exports.GetLoginController = void 0;
 const mongodb_1 = require("mongodb");
-const database_service_1 = __importDefault(require("~/services/database.service"));
+const database_service_1 = __importDefault(require("../services/database.service"));
 // [GET] /users/login
 const GetLoginController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.render('pages/user/login', {

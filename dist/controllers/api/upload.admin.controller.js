@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteImage = exports.upload = void 0;
-const medias_service_1 = __importDefault(require("~/services/medias.service"));
-const httpStatus_1 = __importDefault(require("~/constants/httpStatus"));
+const medias_service_1 = __importDefault(require("../../services/medias.service"));
+const httpStatus_1 = __importDefault(require("../../constants/httpStatus"));
 const upload = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield medias_service_1.default.uploadImage(req);
     console.log(result);

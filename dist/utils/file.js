@@ -38,7 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getFiles = exports.getExtension = exports.getNameFromFullname = exports.handleUploadVideo = exports.handleUploadImage = exports.initFolder = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const dir_1 = require("~/constants/dir");
+const dir_1 = require("../constants/dir");
 const uuid_1 = require("uuid");
 const initFolder = () => {
     ;

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { ObjectId } from 'mongodb'
-import databaseService from '~/services/database.service'
+import databaseService from '../services/database.service'
 // [GET] /users/login
 export const GetLoginController = async (req: Request, res: Response) => {
   res.render('pages/user/login', {

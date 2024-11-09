@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApiDeleteController = exports.ApiEiditController = exports.ApiFilterController = exports.ApiCreateController = void 0;
-const salaryStructure_services_1 = __importDefault(require("~/services/salaryStructure.services"));
-const httpStatus_1 = __importDefault(require("~/constants/httpStatus"));
-const messages_1 = require("~/constants/messages");
-const dir_1 = require("~/constants/dir");
+const salaryStructure_services_1 = __importDefault(require("../../services/salaryStructure.services"));
+const httpStatus_1 = __importDefault(require("../../constants/httpStatus"));
+const messages_1 = require("../../constants/messages");
+const dir_1 = require("../../constants/dir");
 const ApiCreateController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
     yield salaryStructure_services_1.default.create(data);

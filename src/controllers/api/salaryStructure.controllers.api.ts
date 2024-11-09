@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
-import salaryStructureService from '~/services/salaryStructure.services'
-import HTTP_STATUS from '~/constants/httpStatus'
-import { SALARY_STRUCTURE_MESSAGE } from '~/constants/messages'
-import { limmit } from '~/constants/dir'
+import salaryStructureService from '../../services/salaryStructure.services'
+import HTTP_STATUS from '../../constants/httpStatus'
+import { SALARY_STRUCTURE_MESSAGE } from '../../constants/messages'
+import { limmit } from '../../constants/dir'
 export const ApiCreateController = async (req: Request<any, any, any, any>, res: Response) => {
   const data = req.body
   await salaryStructureService.create(data)

@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApieditSalaryFilterController = exports.ApiPostSalaryFilterController = exports.ApiDeleteSalaryFilterController = exports.ApiSalaryFilterController = void 0;
-const dir_1 = require("~/constants/dir");
-const salary_services_1 = __importDefault(require("~/services/salary.services"));
-const httpStatus_1 = __importDefault(require("~/constants/httpStatus"));
-const messages_1 = require("~/constants/messages");
+const dir_1 = require("../../constants/dir");
+const salary_services_1 = __importDefault(require("../../services/salary.services"));
+const httpStatus_1 = __importDefault(require("../../constants/httpStatus"));
+const messages_1 = require("../../constants/messages");
 // [POST] /api/salary/filter
 const ApiSalaryFilterController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const limit = dir_1.limmit;

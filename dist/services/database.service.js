@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongodb_1 = require("mongodb");
-const config_1 = require("~/constants/config");
+const config_1 = require("../constants/config");
 const uri = `mongodb+srv://${config_1.envConfig.dbUsername}:${config_1.envConfig.dbPassword}@cluster0.ycjjawi.mongodb.net`;
 class DatabaseService {
     constructor() {

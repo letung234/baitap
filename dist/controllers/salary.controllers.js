@@ -13,9 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GeteditSalaryController = exports.GetCreateSalaryController = exports.GetSalaryController = void 0;
-const database_service_1 = __importDefault(require("~/services/database.service"));
-const dir_1 = require("~/constants/dir");
-const enums_1 = require("~/constants/enums");
+const database_service_1 = __importDefault(require("../services/database.service"));
+const dir_1 = require("../constants/dir");
+const enums_1 = require("../constants/enums");
 const mongodb_1 = require("mongodb");
 // [GET] /Salary
 const GetSalaryController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

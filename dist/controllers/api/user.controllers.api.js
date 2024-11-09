@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostLoginUser = exports.DeleteUser = exports.PatchEditUsers = exports.PostLogoutUser = exports.PostCreateUsers = void 0;
-const users_service_1 = __importDefault(require("~/services/users.service"));
-const httpStatus_1 = __importDefault(require("~/constants/httpStatus"));
-const crypto_1 = require("~/utils/crypto");
-const database_service_1 = __importDefault(require("~/services/database.service"));
+const users_service_1 = __importDefault(require("../../services/users.service"));
+const httpStatus_1 = __importDefault(require("../../constants/httpStatus"));
+const crypto_1 = require("../../utils/crypto");
+const database_service_1 = __importDefault(require("../../services/database.service"));
 const PostCreateUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = Object.assign({}, req.body);
     data.password = (0, crypto_1.hashPassword)(data.password);

@@ -12,10 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const database_service_1 = __importDefault(require("~/services/database.service"));
+const database_service_1 = __importDefault(require("../services/database.service"));
 const mongodb_1 = require("mongodb");
-const salaryStructure_model_1 = __importDefault(require("~/models/schemas/salaryStructure.model"));
-const parseBoolean_1 = __importDefault(require("~/utils/parseBoolean"));
+const salaryStructure_model_1 = __importDefault(require("../models/schemas/salaryStructure.model"));
+const parseBoolean_1 = __importDefault(require("../utils/parseBoolean"));
 class SalaryStructureService {
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
-import roleService from '~/services/role.services'
-import { RoleRequestBody, EditRolesRequestParams, PermissionsData } from '~/models/requests/role.request'
-import HTTP_STATUS from '~/constants/httpStatus'
-import { ROLE_MESSAGES } from '~/constants/messages'
+import roleService from '../../services/role.services'
+import { RoleRequestBody, EditRolesRequestParams, PermissionsData } from '../../models/requests/role.request'
+import HTTP_STATUS from '../../constants/httpStatus'
+import { ROLE_MESSAGES } from '../../constants/messages'
 export const ApiRoleCreateController = async (req: Request<any, any, RoleRequestBody, any>, res: Response) => {
   const { title, description } = req.body
   await roleService.createRole({

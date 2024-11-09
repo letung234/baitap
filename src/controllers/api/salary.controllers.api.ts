@@ -4,11 +4,11 @@ import {
   DeleteSalaryRequestBody,
   SalaryCreateData,
   SalaryUpdateData
-} from '~/models/requests/salary.request'
-import { limmit } from '~/constants/dir'
-import salaryService from '~/services/salary.services'
-import HTTP_STATUS from '~/constants/httpStatus'
-import { SALARY_MESSAGES } from '~/constants/messages'
+} from '../../models/requests/salary.request'
+import { limmit } from '../../constants/dir'
+import salaryService from '../../services/salary.services'
+import HTTP_STATUS from '../../constants/httpStatus'
+import { SALARY_MESSAGES } from '../../constants/messages'
 // [POST] /api/salary/filter
 export const ApiSalaryFilterController = async (
   req: Request<any, any, SalaryFilterRequestBody, any>,

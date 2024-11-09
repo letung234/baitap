@@ -1,8 +1,8 @@
-import databaseService from '~/services/database.service'
+import databaseService from '../services/database.service'
 import { Request, Response } from 'express'
-import { salaryType } from '~/constants/enums'
+import { salaryType } from '../constants/enums'
 import { ObjectId } from 'mongodb'
-import { limmit } from '~/constants/dir'
+import { limmit } from '../constants/dir'
 // [GET] /salarystructure/create
 export const GetCreateController = async (req: Request, res: Response) => {
   const company = await databaseService.Company.find({}).toArray()

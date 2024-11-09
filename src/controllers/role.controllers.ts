@@ -1,4 +1,4 @@
-import databaseService from '~/services/database.service'
+import databaseService from '../services/database.service'
 import { Request, Response } from 'express'
 import { ObjectId } from 'mongodb'
 // [GET] /role

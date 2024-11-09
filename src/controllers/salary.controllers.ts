@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import databaseService from '~/services/database.service'
-import { limmit } from '~/constants/dir'
-import { salaryType } from '~/constants/enums'
+import databaseService from '../services/database.service'
+import { limmit } from '../constants/dir'
+import { salaryType } from '../constants/enums'
 import { ObjectId } from 'mongodb'
 // [GET] /Salary
 export const GetSalaryController = async (req: Request, res: Response) => {

@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetEditController = exports.GetIndexController = exports.GetCreateController = void 0;
-const database_service_1 = __importDefault(require("~/services/database.service"));
-const enums_1 = require("~/constants/enums");
+const database_service_1 = __importDefault(require("../services/database.service"));
+const enums_1 = require("../constants/enums");
 const mongodb_1 = require("mongodb");
-const dir_1 = require("~/constants/dir");
+const dir_1 = require("../constants/dir");
 // [GET] /salarystructure/create
 const GetCreateController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const company = yield database_service_1.default.Company.find({}).toArray();

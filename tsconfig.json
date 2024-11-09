@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "CommonJS", // Quy định output module được sử dụng
     "moduleResolution": "node", // Quy trình giải quyết module
-    "target": "ES2020", // Target output cho code
+    "target": "ES6", // Target output cho code
     "outDir": "dist", // Đường dẫn output cho thư mục build
     "esModuleInterop": true, // Hỗ trợ tương thích với CommonJS
     "strict": true, // Kích hoạt tất cả các tùy chọn kiểm tra kiểu chặt chẽ

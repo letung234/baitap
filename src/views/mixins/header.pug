@@ -1,0 +1,10 @@
+mixin header(title,roles, role, link, linkreset)
+  header(class="h-[80px] w-full flex bg-gray-100 px-2 justify-between mb-2 pr-3 sm:px-8")
+    div(class="text-xl leading-[80px] font-semibold") #{title}
+    div(class="flex gap-2 h-full items-center")
+      div(class="flex justify-center items-center border bg-white rounded-md h-6 w-6")
+        a(href=linkreset)
+          svg(width="13", height="13", viewBox="0 0 13 13", fill="none", xmlns="http://www.w3.org/2000/svg")
+            path(d="M12.464 6.93C12.4635 8.27073 11.9795 9.56631 11.1008 10.579C10.2221 11.5916 9.00769 12.2534 7.68041 12.4429C6.35314 12.6324 5.00204 12.3369 3.87508 11.6106C2.74812 10.8843 1.92089 9.7759 1.5452 8.48888C1.16952 7.20186 1.27058 5.82252 1.82984 4.604C2.3891 3.38548 3.36905 2.40952 4.58984 1.85523C5.81063 1.30093 7.19037 1.20549 8.47585 1.58642C9.76133 1.96735 10.8663 2.79909 11.588 3.929M11.607 0.5V3.929H8.17802" stroke="#1F272E" stroke-linecap="round" stroke-linejoin="round")
+      div(class="text-white bg-blue-500 rounded-sm w-36 text-xs h-6 flex justify-center items-center hover:bg-blue-600 cursor-pointer" action) #{title}
+      

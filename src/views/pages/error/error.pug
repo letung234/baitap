@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title Lỗi
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css')
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+  body(class='bg-red-100 flex items-center justify-center ')
+    .container(class='bg-white p-8 rounded-lg shadow-lg w-auto py-8')
+      h1(class='text-2xl font-bold text-red-600') Lỗi: #{message}
+      if errorInfo
+        p(class='mt-4 text-gray-700') Thông tin lỗi: #{JSON.stringify(errorInfo, null, 2)}
+      else
+        p(class='mt-4 text-gray-700') Không có thông tin lỗi chi tiết
+      a(href='/' class='mt-4 inline-block text-blue-500 hover:text-blue-700 font-semibold') Quay lại trang chủ

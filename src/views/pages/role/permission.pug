@@ -1,0 +1,72 @@
+extends ../../layouts/default.pug
+
+block main
+  if role.permission.includes("roles_permissions")
+    div(class='flex justify-between items-center mt-4 px-2')
+      h1(class="text-2xl font-bold mb-4 text-gray-700") Phân Quyền
+
+      if(records)
+        div(data-records=records class="hidden")
+
+      div(class="text-right w-full max-w-4xl py-2")
+        button(
+          type="submit"
+          id='button-submit'
+          class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+        ) Cập nhật
+
+    // Bảng phân quyền
+    table(class="min-w-full bg-white shadow-md rounded overflow-hidden" id='table-permissions')
+      thead(class="bg-gray-50")
+        tr
+          th(class="py-2 px-4 border-b text-left") Tính năng
+          each item in records
+            th(class="py-2 px-4 border-b text-center") #{item.title}
+      tbody
+        tr(data-name="id" class="hidden")
+          td
+          each item in records
+            td(class="text-center")
+                input(type="text" value=item._id)
+        // Hiển thị các nhóm và quyền
+        tr(class="bg-gray-100")
+          td(colspan=records.length + 1 class="px-4 py-2 font-semibold text-left") Phần Lương
+        each permission in ['salary_view', 'salary_create', 'salary_edit', 'salary_delete']
+          tr(data-name=permission class="hover:bg-gray-50")
+            td(class="px-4 py-2 border-b text-gray-700") #{permission.split('_').map(w => w[0].toUpperCase() + w.slice(1)).join(' ')}
+            each item in records
+              td(class="px-4 py-2 border-b text-center")
+                input(type="checkbox" class="form-checkbox text-blue-600")
+        tr(class="bg-gray-100")
+          td(colspan=records.length + 1 class="px-4 py-2 font-semibold text-left") Cơ cấu lương
+        each permission in ['salary_structure_view', 'salary_structure_create', 'salary_structure_edit', 'salary_structure_delete']
+          tr(data-name=permission class="hover:bg-gray-50")
+            td(class="px-4 py-2 border-b text-gray-700") #{permission.split('_').map(w => w[0].toUpperCase() + w.slice(1)).join(' ')}
+            each item in records
+              td(class="px-4 py-2 border-b text-center")
+                input(type="checkbox" class="form-checkbox text-blue-600")
+        tr(class="bg-gray-100")
+          td(colspan=records.length + 1 class="px-4 py-2 font-semibold text-left") Nhóm quyền
+        each permission in ['roles_view', 'roles_create', 'roles_edit', 'roles_delete', 'roles_permissions']
+          tr(data-name=permission class="hover:bg-gray-50")
+            td(class="px-4 py-2 border-b text-gray-700") #{permission.split('_')[1].charAt(0).toUpperCase() + permission.split('_')[1].slice(1)}
+            each item in records
+              td(class="px-4 py-2 border-b text-center")
+                input(type="checkbox" class="form-checkbox text-blue-600")
+
+        tr(class="bg-gray-100")
+          td(colspan=records.length + 1 class="px-4 py-2 font-semibold text-left") Tài Khoản
+        each permission in ['accounts_view', 'accounts_create', 'accounts_edit', 'accounts_delete']
+          tr(data-name=permission class="hover:bg-gray-50")
+            td(class="px-4 py-2 border-b text-gray-700") #{permission.split('_')[1].charAt(0).toUpperCase() + permission.split('_')[1].slice(1)}
+            each item in records
+              td(class="px-4 py-2 border-b text-center")
+                input(type="checkbox" class="form-checkbox text-blue-600")
+  else 
+    // Thông báo khi không có quyền truy cập
+    .container.mx-auto.p-4
+      .bg-red-100.border.border-red-400.text-red-700.p-4.rounded-md
+        p(class="font-semibold") Bạn không đủ quyền truy cập.
+    // Form ẩn để gửi các quyền đã thay đổi
+  block script
+    script(type="module" src="/js/role.js")

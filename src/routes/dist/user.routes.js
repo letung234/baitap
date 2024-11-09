@@ -1,0 +1,12 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var user_controllers_1 = require("~/controllers/user.controllers");
+var handler_1 = require("~/utils/handler");
+var authenticateToken_1 = require("~/middlewares/authenticateToken");
+var UserRouter = express_1.Router();
+UserRouter.get('/login', handler_1.wrapRequestHandler(user_controllers_1.GetLoginController));
+UserRouter.get('/', authenticateToken_1["default"], handler_1.wrapRequestHandler(user_controllers_1.GetUserController));
+UserRouter.get('/create', authenticateToken_1["default"], handler_1.wrapRequestHandler(user_controllers_1.CreateUserController));
+UserRouter.get('/edit/:id', authenticateToken_1["default"], handler_1.wrapRequestHandler(user_controllers_1.EditUserController));
+exports["default"] = UserRouter;

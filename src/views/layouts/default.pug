@@ -1,0 +1,46 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title #{pageTitle}
+    link(
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    )
+    link(
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    )
+    
+    link(href="/css/style.css" rel="stylesheet")
+    block input_link_header 
+  body
+    div(id="root", class="bg-white text-base w-full h-screen relative")
+      #loader(class="hidden flex items-center absolute w-full justify-center min-h-screen bg-transparent")
+        div.relative.w-16.h-16
+          div(class=" absolute inset-0 border-4 border-blue-500 border-t-transparent rounded-full animate-spin z-[9999999999999999999999]")
+          div(class="absolute inset-2 border-4 border-green-500 border-b-transparent rounded-full animate-[spin_1.5s_linear_infinite]  z-[9999999999999999999999]")
+      #confirmation-modal(class="z-[9999] fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center transition-all transform -translate-y-full duration-200")
+        .bg-white(class="p-6 rounded-lg shadow-lg max-w-sm")
+          h2#title(class="text-lg font-semibold text-gray-800 mb-4") Xác nhận
+          p#message(class="text-gray-600 mb-6") Bạn có chắc chắn muốn thực hiện hành động này không?
+          .flex(class="justify-end")
+            button#cancel-button(class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 mr-2") Hủy
+            button#confirm-button(class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600") Đồng ý
+
+      
+      input(type="hidden" value=messages id=`messages` data-title = pageTitle)
+      #toast(class="fixed top-8 right-8 z-[999999]")
+      div(class="content-wrapper font-Karla text-base max-w-screen-2xl h-full relative")
+        a(href="/" class="flex items-center justify-center w-full h-6 bg-blue-500 text-white text-lg font-semibold transition duration-300 ease-in-out hover:bg-blue-600 rounded-md shadow-lg p-4")
+          i(class="fas fa-arrow-left mr-2") 
+          span Quay về trang chủ
+        block main
+      script(type="module" src="/js/main.js")
+      script(type="application/javascript" src="https://cdn.tiny.cloud/1/2lkzpiy7588qny85z67du8xngvp8amd4cdwjocxzs21i8j10/tinymce/7/tinymce.min.js" referrerpolicy="origin")
+      script(type="application/javascript" src="http://localhost:4000/js/tinymce-config.js")
+      block script

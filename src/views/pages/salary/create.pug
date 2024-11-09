@@ -1,0 +1,66 @@
+extends ../../layouts/default.pug
+include ../../mixins/header
+
+block main
+  if role.permission.includes("salary_create")
+    +header("Thêm Phân Lương",role.permission, 'salary_create',)
+    
+    div(class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md")
+      form(form-create id='form-1')
+        div(class="mb-4 form-group")
+          label(for="ten" class="block text-sm font-medium text-gray-700") Tên *
+          input(id="ten" name="ten" type="text"  class="mt-1 block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500")
+          <span class="form-message"></span>
+        div(class="mb-4 form-group")
+          label(for="loai" class="block text-sm font-medium text-gray-700") Loại *
+          select(id="loai" name="loai"  class="mt-1 block w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500")
+            option(value="0") Thu nhập
+            option(value="1") Khấu Trừ
+          <span class="form-message"></span>
+        
+        div(class="mb-4 form-group")
+          label(for="mo_ta" class="block text-sm font-medium text-gray-700") Mô Tả
+          textarea(id="mo_ta" name="mo_ta" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500")
+          <span class="form-message"></span>
+        
+        div(class="mb-4")
+          h2(class="text-lg font-semibold mb-2") Tùy chọn
+          label(class="inline-flex items-center mt-2")
+            input(type="checkbox" name="is_active" id="is_active" class="form-checkbox h-4 w-4 text-blue-600")
+            span(class="ml-2 text-gray-700") Vô hiệu hóa
+          <span class="form-message"></span>
+        
+        div(class="mb-4")
+          h2(class="text-lg font-semibold mb-2") Tài khoản kế toán
+          table(class="min-w-full bg-white border border-gray-300" id="accountTable")
+            thead
+              tr
+                th(class="border-b-2 border-gray-300 px-4 py-2 text-left") STT
+                th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Công Ty
+                th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Tài khoản
+                th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Hành động
+            tbody
+          
+          div(class="mt-4")
+            select(id="company" class="p-2 border border-gray-300 rounded-md w-1/2 mr-2" )
+              option(value="", disabled=true, selected=true) Chọn Công Ty
+              each company in Company
+                option(value=company._id) #{company.ten}
+            
+            select(id="account" class="p-2 border border-gray-300 rounded-md w-1/2" )
+              option(value="", disabled=true, selected=true) Chọn Tài Khoản
+              each account in Account
+                option(value=account._id) #{account.ten}
+            
+            button(id="addRowButton" type="button" class="mt-4 inline-flex items-center px-4 py-2 bg-gray-100 text-black rounded-md hover:bg-blue-200") Thêm Hàng
+  else 
+    // Thông báo khi không có quyền truy cập
+    .container.mx-auto.p-4
+      .bg-red-100.border.border-red-400.text-red-700.p-4.rounded-md
+        p(class="font-semibold") Bạn không đủ quyền truy cập.
+    // Form ẩn để gửi các quyền đã thay đổi 
+block script
+  script(type="module" src="/js/phanluong.js")
+  script(type="application/javascript" src="https://cdn.tiny.cloud/1/2lkzpiy7588qny85z67du8xngvp8amd4cdwjocxzs21i8j10/tinymce/7/tinymce.min.js" referrerpolicy="origin")
+  script(type="application/javascript" src= "http://localhost:4000/js/tinymce-config.js")
+  

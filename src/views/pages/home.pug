@@ -1,0 +1,33 @@
+doctype html
+html(lang="vi")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Dashboard
+    link(
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    )
+    link(rel="stylesheet" href="/css/style.css")
+  body(class="bg-gray-100 h-screen w-full px-4 relative")
+    #toast(class="fixed top-8 right-8 z-[99999999999999999]")
+    div.hidden.flex.items-center.absolute.w-full.justify-center.min-h-screen.bg-transparent#loader
+      div.relative.w-16.h-16
+        div.absolute.inset-0.border-4.border-blue-500.border-t-transparent.rounded-full.animate-spin
+        div(class="absolute inset-2 border-4 border-green-500 border-b-transparent rounded-full animate-[spin_1.5s_linear_infinite]")
+    div(class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg")
+      h1(class="text-3xl font-bold text-center border-b-2 border-blue-500 pb-4") Bảng Lương
+      div(class="mt-6 flex flex-col gap-3")
+        if role.permission.includes("salary_view")
+          a(href="/salary", class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded shadow-md transition duration-300 flex justify-center") Phân Lương
+        if role.permission.includes("salary_structure_view")
+          a(href="/salaryStructure", class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded shadow-md transition duration-300 flex justify-center") Cơ Cấu Tiền Lương
+        if role.permission.includes("accounts_view")
+          a(href="/users", class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded shadow-md transition duration-300 flex justify-center") Quản lý tài khoản
+        if role.permission.includes("roles_view")
+          a(href="/role", class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded shadow-md transition duration-300 flex justify-center") Quản lý quyền
+        button(id="logout" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded shadow-md transition duration-300 flex justify-center") Logout       
+    script(type="module" src="/js/main.js")

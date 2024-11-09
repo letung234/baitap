@@ -1,0 +1,98 @@
+extends ../../layouts/default.pug
+
+block main
+  if role.permission.includes("salary_structure_create")
+    form(id='formCreate', class="p-8 max-w-3xl mx-auto bg-white shadow-md rounded-md border border-gray-200")
+      h2.text-3xl.font-bold.mb-6.text-center Thêm mới cơ cấu lương
+
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="ten") Tên cơ cấu lương
+        input#ten(type="text" name="ten" placeholder="Nhập tên cơ cấu lương" class="form-input mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" )
+        <span class="form-message"></span>
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="id_cong_ty") Công ty
+        select#id_cong_ty(name="id_cong_ty"  class="form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" )
+          option(value="") -- Chọn công ty --
+          each c in company
+            option(value=c._id) #{c.ten}
+        <span class="form-message"></span>
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="status") Trạng thái
+        select#status(name="status" class="form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" )
+          option(value="true") Active
+          option(value="false") Inactive
+        <span class="form-message"></span>
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="chu_ky_phat_luong") Chu kỳ phát lương
+        input#chu_ky_phat_luong(type="text" name="chu_ky_phat_luong" placeholder="VD: hàng tháng" class="form-input mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500")
+        <span class="form-message"></span>
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="don_vi_tien_te") Đơn vị tiền tệ
+        input#don_vi_tien_te(type="text" name="don_vi_tien_te" placeholder="VD: VND" class="form-input mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500")
+        <span class="form-message"></span>
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="hinh_thuc_chi_tra_id_hinh_thuc") Hình thức chi trả
+        select#hinh_thuc_chi_tra_id_hinh_thuc(name="hinh_thuc_chi_tra[id_hinh_thuc]" class="form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" )
+          option(value="") -- Chọn hình thức chi trả --
+          each method in formofpayment
+            option(value=method._id) #{method.ten}
+        <span class="form-message"></span>
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="hinh_thuc_chi_tra_id_tai_khoan") Tài khoản chi trả
+        select#hinh_thuc_chi_tra_id_tai_khoan(name="hinh_thuc_chi_tra[id_tai_khoan_chi_tra]" class="form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" )
+          option(value="") -- Chọn tài khoản chi trả --
+          each account in paymentAccount
+            option(value=account._id) #{account.ten}
+        <span class="form-message"></span>
+      // Thu nhập
+      div(class="mb-4")
+          h2(class="text-lg font-semibold mb-2") Thu nhập
+          table(class="min-w-full bg-white border border-gray-300" id="incomeTable")
+            thead
+              tr
+                th(class="border-b-2 border-gray-300 px-4 py-2 text-left") STT
+                th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Phân Lương
+                th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Số Tiền
+                th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Hành động
+            tbody
+          
+          div(class="mt-4")
+            select(id="salaryportiontn" class="p-2 border border-gray-300 rounded-md w-1/2 mr-2")
+              option(value="", disabled=true, selected=true) Chọn Công Ty
+              each item in SalaryportionTN
+                option(value=item._id) #{item.ten}
+            
+            input(id="sumtn" type='number' class="p-2 border border-gray-300 rounded-md w-1/2")      
+            button(id="addRowButtontn" type="button" class="mt-4 inline-flex items-center px-4 py-2 bg-gray-100 text-black rounded-md hover:bg-blue-200") + Thêm Thu Nhập
+
+      // Khấu trừ
+      div(class="mb-4")
+          h2(class="text-lg font-semibold mb-2") Thu nhập
+          table(class="min-w-full bg-white border border-gray-300" id="deductionTable")
+            thead
+              tr
+                th(class="border-b-2 border-gray-300 px-4 py-2 text-left") STT
+                th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Phân Lương
+                th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Số Tiền
+                th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Hành động
+            tbody
+          
+          div(class="mt-4")
+            select(id="salaryportionkt" class="p-2 border border-gray-300 rounded-md w-1/2 mr-2")
+              option(value="", disabled=true, selected=true) Chọn Công Ty
+              each item in SalaryportionKT
+                option(value=item._id) #{item.ten}
+            
+            input(id="sumkt" type='number' class="p-2 border border-gray-300 rounded-md w-1/2")      
+            button(id="addRowButtonkt" type="button" class="mt-4 inline-flex items-center px-4 py-2 bg-gray-100 text-black rounded-md hover:bg-blue-200") + Thêm Khấu Trừ
+
+      // Nút submit
+      div.mt-6
+        button(type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md shadow-md") Lưu cơ cấu lương
+  else 
+    // Thông báo khi không có quyền truy cập
+    .container.mx-auto.p-4
+      .bg-red-100.border.border-red-400.text-red-700.p-4.rounded-md
+        p(class="font-semibold") Bạn không đủ quyền truy cập.
+block script
+  script(type="module" src="/js/salaryStructure.js")

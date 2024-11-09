@@ -1,0 +1,118 @@
+extends ../../layouts/default.pug
+
+block main
+  if role.permission.includes("salary_structure_edit")
+    form(id='formEdit', class="p-8 max-w-3xl mx-auto bg-white shadow-md rounded-md border border-gray-200")
+      h2.text-3xl.font-bold.mb-6.text-center Chỉnh sửa cơ cấu lương
+
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="ten") Tên cơ cấu lương
+        input#ten(type="text" name="ten" placeholder="Nhập tên cơ cấu lương" value=`${Salary.ten}` class="form-input mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" )
+        span.form-message
+
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="id_cong_ty") Công ty
+        select#id_cong_ty(name="id_cong_ty" class="form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" )
+          option(value="") -- Chọn công ty --
+          each c in company
+            option(value=c._id, selected=Salary.id_cong_ty.toString() === c._id.toString()) #{c.ten}
+        span.form-message
+
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="status") Trạng thái
+        select#status(name="status" class="form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" )
+          option(value="true", selected=Salary.status === true) Active
+          option(value="false", selected=Salary.status === false) Inactive
+        span.form-message
+
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="chu_ky_phat_luong") Chu kỳ phát lương
+        input#chu_ky_phat_luong(type="text" name="chu_ky_phat_luong" placeholder="VD: hàng tháng" value=`${Salary.chu_ky_phat_luong}` class="form-input mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500")
+        span.form-message
+
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="don_vi_tien_te") Đơn vị tiền tệ
+        input#don_vi_tien_te(type="text" name="don_vi_tien_te" placeholder="VD: VND" value=`${Salary.don_vi_tien_te}` class="form-input mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500")
+        span.form-message
+
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="hinh_thuc_chi_tra_id_hinh_thuc") Hình thức chi trả
+        select#hinh_thuc_chi_tra_id_hinh_thuc(name="hinh_thuc_chi_tra[id_hinh_thuc]" class="form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" )
+          option(value="") -- Chọn hình thức chi trả --
+          each method in formofpayment
+            option(value=method._id, selected=Salary.hinh_thuc_chi_tra.id_hinh_thuc.toString() === method._id.toString()) #{method.ten}
+        span.form-message
+
+      div.mb-6.form-group
+        label.text-gray-800.font-semibold(for="hinh_thuc_chi_tra_id_tai_khoan") Tài khoản chi trả
+        select#hinh_thuc_chi_tra_id_tai_khoan(name="hinh_thuc_chi_tra[id_tai_khoan_chi_tra]" class="form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" )
+          option(value="") -- Chọn tài khoản chi trả --
+          each account in paymentAccount
+            option(value=account._id, selected=Salary.hinh_thuc_chi_tra.id_tai_khoan_chi_tra.toString() === account._id.toString()) #{account.ten}
+        span.form-message
+
+      // Thu nhập
+      div(class="mb-4")
+        h2(class="text-lg font-semibold mb-2") Thu nhập
+        table(class="min-w-full bg-white border border-gray-300" id="incomeTable")
+          thead
+            tr
+              th(class="border-b-2 border-gray-300 px-4 py-2 text-left") STT
+              th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Phân Lương
+              th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Số Tiền
+              th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Hành động
+          tbody
+            each item, index in Salary.thu_nhap
+              tr
+                td(class="border-b border-gray-300 px-4 py-2") #{index + 1}
+                td(class="border-b border-gray-300 px-4 py-2" data-id=SalaryportionTN.find(c => c._id.toString() === item.id_phan_luong.toString())._id) #{SalaryportionTN.find(c => c._id.toString() === item.id_phan_luong.toString()).ten}
+                td(class="border-b border-gray-300 px-4 py-2" data-id=item.so_tien) #{item.so_tien}
+                td(class="border-b border-gray-300 px-4 py-2")
+                    button(type="button" class="text-red-500 hover:text-red-700" onclick=`removeRow(${index})`) Xóa
+        div(class="mt-4")
+          select(id="salaryportiontn" class="p-2 border border-gray-300 rounded-md w-1/2 mr-2")
+            option(value="", disabled=true, selected=true) Chọn Phân Lương
+            each item in SalaryportionTN
+              option(value=item._id) #{item.ten}
+          
+          input(id="sumtn" type='number' class="p-2 border border-gray-300 rounded-md w-1/2")      
+          button(id="addRowButtontn" type="button" class="mt-4 inline-flex items-center px-4 py-2 bg-gray-100 text-black rounded-md hover:bg-blue-200") + Thêm Thu Nhập
+
+      // Khấu trừ
+      div(class="mb-4")
+        h2(class="text-lg font-semibold mb-2") Khấu trừ
+        table(class="min-w-full bg-white border border-gray-300" id="deductionTable")
+          thead
+            tr
+              th(class="border-b-2 border-gray-300 px-4 py-2 text-left") STT
+              th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Phân Lương
+              th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Số Tiền
+              th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Hành động
+          tbody
+            each item, index in Salary.khau_tru
+              tr
+                td(class="border-b border-gray-300 px-4 py-2") #{index + 1}
+                td(class="border-b border-gray-300 px-4 py-2" data-id=SalaryportionKT.find(c => c._id.toString() === item.id_phan_luong.toString())._id) #{SalaryportionKT.find(c => c._id.toString() === item.id_phan_luong.toString()).ten}
+                td(class="border-b border-gray-300 px-4 py-2" data-id=item.so_tien) #{item.so_tien}
+                td(class="border-b border-gray-300 px-4 py-2")
+                    button(type="button" class="text-red-500 hover:text-red-700" onclick=`removeRow(${index})`) Xóa
+
+        div(class="mt-4")
+          select(id="salaryportionkt" class="p-2 border border-gray-300 rounded-md w-1/2 mr-2")
+            option(value="", disabled=true, selected=true) Chọn Phân Lương
+            each item in SalaryportionKT
+              option(value=item._id) #{item.ten}
+          
+          input(id="sumkt" type='number' class="p-2 border border-gray-300 rounded-md w-1/2")      
+          button(id="addRowButtonkt" type="button" class="mt-4 inline-flex items-center px-4 py-2 bg-gray-100 text-black rounded-md hover:bg-blue-200") + Thêm Khấu Trừ
+
+      // Nút submit
+      div.mt-6
+        button(type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md shadow-md") Lưu thay đổi
+  else 
+    // Thông báo khi không có quyền truy cập
+    .container.mx-auto.p-4
+      .bg-red-100.border.border-red-400.text-red-700.p-4.rounded-md
+        p(class="font-semibold") Bạn không đủ quyền truy cập.
+block script
+  script(type="module" src="/js/salaryStructure.js")

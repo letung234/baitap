@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS", // Quy định output module được sử dụng
+    "moduleResolution": "node", // Quy trình giải quyết module
+    "target": "ES2020", // Target output cho code
+    "outDir": "dist", // Đường dẫn output cho thư mục build
+    "esModuleInterop": true, // Hỗ trợ tương thích với CommonJS
+    "strict": true, // Kích hoạt tất cả các tùy chọn kiểm tra kiểu chặt chẽ
+    "skipLibCheck": true, // Bỏ qua kiểm tra kiểu trong các file .d.ts
+    "baseUrl": ".", // Đường dẫn base cho các import
+    "paths": {
+      "~/*": ["src/*"] // Định nghĩa alias cho import
+    }
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "files": ["src/type.d.ts"], // Các file dùng để định nghĩa global type
+  "include": ["src/**/*"] // Bao gồm tất cả file trong thư mục src
+}

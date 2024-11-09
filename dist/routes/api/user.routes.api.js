@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const handler_1 = require("../../utils/handler");
+const validates_middlewares_1 = require("../../middlewares/validates.middlewares");
+const user_controllers_api_1 = require("../../controllers/api/user.controllers.api");
+const ApiUserRouter = (0, express_1.Router)();
+ApiUserRouter.post('/create', validates_middlewares_1.createUserValidator, (0, handler_1.wrapRequestHandler)(user_controllers_api_1.PostCreateUsers));
+ApiUserRouter.patch('/edit/:id', validates_middlewares_1.updateUserValidator, (0, handler_1.wrapRequestHandler)(user_controllers_api_1.PatchEditUsers));
+ApiUserRouter.delete('/delete/:id', (0, handler_1.wrapRequestHandler)(user_controllers_api_1.DeleteUser));
+ApiUserRouter.post('/login', validates_middlewares_1.loginValidator, (0, handler_1.wrapRequestHandler)(user_controllers_api_1.PostLoginUser));
+ApiUserRouter.post('/logout', (0, handler_1.wrapRequestHandler)(user_controllers_api_1.PostLogoutUser));
+exports.default = ApiUserRouter;

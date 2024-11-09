@@ -13,6 +13,7 @@ async function initTinyMCE() {
       automatic_uploads: true, // Tự động tải lên hình ảnh khi chèn từ máy tính
       file_picker_types: 'image', // Chỉ cho phép chọn tệp là hình ảnh
       apiKey: '2lkzpiy7588qny85z67du8xngvp8amd4cdwjocxzs21i8j10',
+
       images_upload_handler: async function (blobInfo) {
         try {
           // Tạo FormData để gửi tệp

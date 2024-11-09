@@ -1,17 +1,26 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateSalaryStructureValidator = exports.createSalaryStructureValidator = exports.updateUserValidator = exports.createUserValidator = exports.editRoleValidator = exports.createRoleValidator = exports.loginValidator = exports.createSalaryValidator = exports.UpdateSalaryValidator = void 0;
-const validation_1 = require("../utils/validation");
-const enums_1 = require("../constants/enums");
-const database_service_1 = __importDefault(require("../services/database.service"));
-const messages_1 = require("../constants/messages");
+const validation_1 = require("~/utils/validation");
+const enums_1 = require("~/constants/enums");
+const database_service_1 = __importDefault(require("~/services/database.service"));
+const messages_1 = require("~/constants/messages");
 const mongodb_1 = require("mongodb");
 const express_validator_1 = require("express-validator");
-const messages_2 = require("../constants/messages");
-const crypto_1 = require("../utils/crypto");
+const messages_2 = require("~/constants/messages");
+const crypto_1 = require("~/utils/crypto");
 // Validator cho cập nhật phân lương
 exports.UpdateSalaryValidator = (0, validation_1.validate)((0, express_validator_1.checkSchema)({
     ten: {
@@ -25,10 +34,11 @@ exports.UpdateSalaryValidator = (0, validation_1.validate)((0, express_validator
             errorMessage: messages_1.SALARY_MESSAGES.SALARY_NAME_MAX_LENGTH // 'Tên phân lương không được vượt quá 255 ký tự'
         },
         custom: {
-            options: async (value, { req }) => {
+            options: (value_1, _a) => __awaiter(void 0, [value_1, _a], void 0, function* (value, { req }) {
+                var _b;
                 // Kiểm tra nếu tên đã tồn tại cho phân lương khác
-                const salaryId = req.params?.id; // Lấy ID từ request params
-                const existingSalary = await database_service_1.default.SalaryPortion.findOne({
+                const salaryId = (_b = req.params) === null || _b === void 0 ? void 0 : _b.id; // Lấy ID từ request params
+                const existingSalary = yield database_service_1.default.SalaryPortion.findOne({
                     ten: value,
                     _id: { $ne: new mongodb_1.ObjectId(salaryId) }
                 });
@@ -36,7 +46,7 @@ exports.UpdateSalaryValidator = (0, validation_1.validate)((0, express_validator
                     throw new Error(messages_1.SALARY_MESSAGES.SALARY_NAME_EXISTS); // 'Tên phân lương đã tồn tại!!!'
                 }
                 return true;
-            }
+            })
         }
     },
     loai: {
@@ -77,12 +87,12 @@ exports.UpdateSalaryValidator = (0, validation_1.validate)((0, express_validator
     },
     tai_khoan_ke_toan: {
         custom: {
-            options: async (value) => {
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
                 const seen = new Set();
                 for (const account of value) {
                     const key = `${account.id_congty}-${account.id_ke_toan}`;
-                    const cty = await database_service_1.default.Company.findOne({ _id: new mongodb_1.ObjectId(account.id_congty) });
-                    const kt = await database_service_1.default.Account.findOne({ _id: new mongodb_1.ObjectId(account.id_ke_toan) });
+                    const cty = yield database_service_1.default.Company.findOne({ _id: new mongodb_1.ObjectId(account.id_congty) });
+                    const kt = yield database_service_1.default.Account.findOne({ _id: new mongodb_1.ObjectId(account.id_ke_toan) });
                     if (!cty || !kt)
                         throw new Error(`Could not find company and account`);
                     if (seen.has(key)) {
@@ -91,7 +101,7 @@ exports.UpdateSalaryValidator = (0, validation_1.validate)((0, express_validator
                     seen.add(key);
                 }
                 return true;
-            }
+            })
         }
     }
 }, ['body'] // Kiểm tra trong body của request
@@ -108,13 +118,13 @@ exports.createSalaryValidator = (0, validation_1.validate)((0, express_validator
             errorMessage: messages_1.SALARY_MESSAGES.SALARY_NAME_MAX_LENGTH // 'Tên phân lương không được vượt quá 255 ký tự.'
         },
         custom: {
-            options: async (value) => {
-                const result = await database_service_1.default.SalaryPortion.findOne({ ten: value });
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
+                const result = yield database_service_1.default.SalaryPortion.findOne({ ten: value });
                 if (result) {
                     throw new Error(messages_1.SALARY_MESSAGES.SALARY_NAME_EXISTS); // 'Tên phân lương đã tồn tại!!!'
                 }
                 return true;
-            }
+            })
         }
     },
     loai: {
@@ -155,12 +165,12 @@ exports.createSalaryValidator = (0, validation_1.validate)((0, express_validator
     },
     tai_khoan_ke_toan: {
         custom: {
-            options: async (value) => {
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
                 const seen = new Set();
                 for (const account of value) {
                     const key = `${account.id_congty}-${account.id_ke_toan}`;
-                    const cty = await database_service_1.default.Company.findOne({ _id: new mongodb_1.ObjectId(account.id_congty) });
-                    const kt = await database_service_1.default.Account.findOne({ _id: new mongodb_1.ObjectId(account.id_ke_toan) });
+                    const cty = yield database_service_1.default.Company.findOne({ _id: new mongodb_1.ObjectId(account.id_congty) });
+                    const kt = yield database_service_1.default.Account.findOne({ _id: new mongodb_1.ObjectId(account.id_ke_toan) });
                     if (!cty || !kt)
                         throw new Error(`Could not find company and account`);
                     if (seen.has(key)) {
@@ -169,7 +179,7 @@ exports.createSalaryValidator = (0, validation_1.validate)((0, express_validator
                     seen.add(key);
                 }
                 return true;
-            }
+            })
         }
     }
 }, ['body']));
@@ -205,8 +215,8 @@ exports.loginValidator = (0, validation_1.validate)((0, express_validator_1.chec
         },
         trim: true,
         custom: {
-            options: async (value, { req }) => {
-                const user = await database_service_1.default.User.findOne({
+            options: (value_1, _a) => __awaiter(void 0, [value_1, _a], void 0, function* (value, { req }) {
+                const user = yield database_service_1.default.User.findOne({
                     email: req.body.email,
                     password: (0, crypto_1.hashPassword)(req.body.password),
                     is_active: true
@@ -216,7 +226,7 @@ exports.loginValidator = (0, validation_1.validate)((0, express_validator_1.chec
                 }
                 req.user = user;
                 return true;
-            }
+            })
         }
     },
     password: passwordSchema
@@ -235,14 +245,14 @@ exports.createRoleValidator = (0, validation_1.validate)((0, express_validator_1
             errorMessage: 'Tên vai trò không được vượt quá 255 ký tự.'
         },
         custom: {
-            options: async (value) => {
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
                 // Kiểm tra nếu tên role đã tồn tại
-                const existingRole = await database_service_1.default.Role.findOne({ title: value });
+                const existingRole = yield database_service_1.default.Role.findOne({ title: value });
                 if (existingRole) {
                     throw new Error('Tên vai trò đã tồn tại.');
                 }
                 return true;
-            }
+            })
         }
     },
     description: {
@@ -286,10 +296,11 @@ exports.editRoleValidator = (0, validation_1.validate)((0, express_validator_1.c
             errorMessage: 'Tên vai trò không được vượt quá 255 ký tự.'
         },
         custom: {
-            options: async (value, { req }) => {
-                const roleId = req.params?.id; // Lấy ID của Role từ request params
+            options: (value_1, _a) => __awaiter(void 0, [value_1, _a], void 0, function* (value, { req }) {
+                var _b;
+                const roleId = (_b = req.params) === null || _b === void 0 ? void 0 : _b.id; // Lấy ID của Role từ request params
                 // Kiểm tra xem role khác với role hiện tại có cùng title hay không
-                const existingRole = await database_service_1.default.Role.findOne({
+                const existingRole = yield database_service_1.default.Role.findOne({
                     title: value,
                     _id: { $ne: new mongodb_1.ObjectId(roleId) } // Loại trừ chính nó bằng ID
                 });
@@ -297,7 +308,7 @@ exports.editRoleValidator = (0, validation_1.validate)((0, express_validator_1.c
                     throw new Error('Tên vai trò đã tồn tại.');
                 }
                 return true;
-            }
+            })
         }
     },
     description: {
@@ -348,13 +359,13 @@ exports.createUserValidator = (0, validation_1.validate)((0, express_validator_1
             errorMessage: messages_2.MESSAGES.EMAIL_INVALID
         },
         custom: {
-            options: async (value) => {
-                const user = await database_service_1.default.User.findOne({ email: value });
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
+                const user = yield database_service_1.default.User.findOne({ email: value });
                 if (user) {
                     throw new Error(messages_2.MESSAGES.EMAIL_ALREADY_EXISTS);
                 }
                 return true;
-            }
+            })
         }
     },
     role_id: {
@@ -365,13 +376,13 @@ exports.createUserValidator = (0, validation_1.validate)((0, express_validator_1
             errorMessage: 'Role ID phải là chuỗi ký tự.'
         },
         custom: {
-            options: async (value) => {
-                const role = await database_service_1.default.Role.findOne({ _id: new mongodb_1.ObjectId(value) });
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
+                const role = yield database_service_1.default.Role.findOne({ _id: new mongodb_1.ObjectId(value) });
                 if (!role) {
                     throw new Error(messages_2.MESSAGES.ROLE_ID_INVALID);
                 }
                 return true;
-            }
+            })
         }
     },
     password: passwordSchema, // Sử dụng passwordSchema ở đây
@@ -423,14 +434,15 @@ exports.updateUserValidator = (0, validation_1.validate)((0, express_validator_1
         },
         optional: true,
         custom: {
-            options: async (value, { req }) => {
-                const userId = req.params?.id;
-                const user = await database_service_1.default.User.findOne({ email: value, _id: { $ne: new mongodb_1.ObjectId(userId) } });
+            options: (value_1, _a) => __awaiter(void 0, [value_1, _a], void 0, function* (value, { req }) {
+                var _b;
+                const userId = (_b = req.params) === null || _b === void 0 ? void 0 : _b.id;
+                const user = yield database_service_1.default.User.findOne({ email: value, _id: { $ne: new mongodb_1.ObjectId(userId) } });
                 if (user) {
                     throw new Error('Email đã tồn tại.');
                 }
                 return true;
-            }
+            })
         }
     },
     role_id: {
@@ -439,19 +451,17 @@ exports.updateUserValidator = (0, validation_1.validate)((0, express_validator_1
         },
         optional: true,
         custom: {
-            options: async (value) => {
-                const role = await database_service_1.default.Role.findOne({ _id: new mongodb_1.ObjectId(value) });
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
+                const role = yield database_service_1.default.Role.findOne({ _id: new mongodb_1.ObjectId(value) });
                 if (!role) {
                     throw new Error('Role ID không hợp lệ.');
                 }
                 return true;
-            }
+            })
         }
     },
-    password: {
-        ...passwordSchema,
-        optional: true // Để cho phép cập nhật mà không cần thay đổi mật khẩu
-    },
+    password: Object.assign(Object.assign({}, passwordSchema), { optional: true // Để cho phép cập nhật mà không cần thay đổi mật khẩu
+     }),
     is_active: {
         isBoolean: {
             errorMessage: 'Trạng thái hoạt động phải là kiểu boolean.'
@@ -496,13 +506,13 @@ exports.createSalaryStructureValidator = (0, validation_1.validate)((0, express_
             errorMessage: 'Tên cấu trúc lương không được vượt quá 255 ký tự.'
         },
         custom: {
-            options: async (value) => {
-                const existingSalaryStructure = await database_service_1.default.SalaryStructure.findOne({ ten: value });
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
+                const existingSalaryStructure = yield database_service_1.default.SalaryStructure.findOne({ ten: value });
                 if (existingSalaryStructure) {
                     throw new Error('Tên cấu trúc lương đã tồn tại.');
                 }
                 return true;
-            }
+            })
         }
     },
     id_cong_ty: {
@@ -539,9 +549,9 @@ exports.createSalaryStructureValidator = (0, validation_1.validate)((0, express_
             errorMessage: messages_2.SALARY_STRUCTURE_MESSAGE.INCOME_IS_ARRAY
         },
         custom: {
-            options: async (value) => {
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
                 for (const item of value) {
-                    const id = await database_service_1.default.SalaryPortion.findOne({ _id: new mongodb_1.ObjectId(item.id_phan_luong) });
+                    const id = yield database_service_1.default.SalaryPortion.findOne({ _id: new mongodb_1.ObjectId(item.id_phan_luong) });
                     if (!id)
                         throw new Error(`Salary not found!!!`);
                     if (item.so_tien < 0) {
@@ -549,7 +559,7 @@ exports.createSalaryStructureValidator = (0, validation_1.validate)((0, express_
                     }
                 }
                 return true;
-            }
+            })
         }
     },
     khau_tru: {
@@ -557,9 +567,9 @@ exports.createSalaryStructureValidator = (0, validation_1.validate)((0, express_
             errorMessage: messages_2.SALARY_STRUCTURE_MESSAGE.DEDUCTION_IS_ARRAY
         },
         custom: {
-            options: async (value) => {
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
                 for (const item of value) {
-                    const id = await database_service_1.default.SalaryPortion.findOne({ _id: new mongodb_1.ObjectId(item.id_phan_luong) });
+                    const id = yield database_service_1.default.SalaryPortion.findOne({ _id: new mongodb_1.ObjectId(item.id_phan_luong) });
                     if (!id)
                         throw new Error(`Salary not found!!!`);
                     if (item.so_tien < 0) {
@@ -567,7 +577,7 @@ exports.createSalaryStructureValidator = (0, validation_1.validate)((0, express_
                     }
                 }
                 return true;
-            }
+            })
         }
     },
     hinh_thuc_chi_tra: {
@@ -578,16 +588,16 @@ exports.createSalaryStructureValidator = (0, validation_1.validate)((0, express_
             errorMessage: 'Hình thức chi trả phải là một đối tượng.'
         },
         custom: {
-            options: async (value) => {
-                const ht = await database_service_1.default.FormOfPayment.findOne({ _id: new mongodb_1.ObjectId(value.id_hinh_thuc) });
-                const tk = await database_service_1.default.PayMentAccount.findOne({ _id: new mongodb_1.ObjectId(value.id_tai_khoan_chi_tra) });
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
+                const ht = yield database_service_1.default.FormOfPayment.findOne({ _id: new mongodb_1.ObjectId(value.id_hinh_thuc) });
+                const tk = yield database_service_1.default.PayMentAccount.findOne({ _id: new mongodb_1.ObjectId(value.id_tai_khoan_chi_tra) });
                 if (!ht || !tk)
                     throw new Error('Không thể tìm thấy id hình thưc hoặc id tài khoản chi trả!!!');
                 if (!value.id_hinh_thuc || !value.id_tai_khoan_chi_tra) {
                     throw new Error(messages_2.SALARY_STRUCTURE_MESSAGE.PAYMENT_METHOD_IS_REQUIRED);
                 }
                 return true;
-            }
+            })
         }
     },
     deleted: {
@@ -621,9 +631,10 @@ exports.updateSalaryStructureValidator = (0, validation_1.validate)((0, express_
             errorMessage: 'Tên cấu trúc lương không được vượt quá 255 ký tự.'
         },
         custom: {
-            options: async (value, { req }) => {
-                const id = req.params?.id;
-                const existingSalaryStructure = await database_service_1.default.SalaryStructure.findOne({
+            options: (value_1, _a) => __awaiter(void 0, [value_1, _a], void 0, function* (value, { req }) {
+                var _b;
+                const id = (_b = req.params) === null || _b === void 0 ? void 0 : _b.id;
+                const existingSalaryStructure = yield database_service_1.default.SalaryStructure.findOne({
                     ten: value,
                     _id: { $ne: new mongodb_1.ObjectId(id) } // Loại trừ bản ghi có id hiện tại
                 });
@@ -631,7 +642,7 @@ exports.updateSalaryStructureValidator = (0, validation_1.validate)((0, express_
                     throw new Error('Tên cấu trúc lương đã tồn tại.');
                 }
                 return true;
-            }
+            })
         }
     },
     id_cong_ty: {
@@ -664,9 +675,9 @@ exports.updateSalaryStructureValidator = (0, validation_1.validate)((0, express_
         },
         optional: true,
         custom: {
-            options: async (value) => {
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
                 for (const item of value) {
-                    const id = await database_service_1.default.SalaryPortion.findOne({ _id: new mongodb_1.ObjectId(item.id_phan_luong) });
+                    const id = yield database_service_1.default.SalaryPortion.findOne({ _id: new mongodb_1.ObjectId(item.id_phan_luong) });
                     if (!id)
                         throw new Error(`Salary not found!!!`);
                     if (item.so_tien < 0) {
@@ -674,7 +685,7 @@ exports.updateSalaryStructureValidator = (0, validation_1.validate)((0, express_
                     }
                 }
                 return true;
-            }
+            })
         }
     },
     khau_tru: {
@@ -683,9 +694,9 @@ exports.updateSalaryStructureValidator = (0, validation_1.validate)((0, express_
         },
         optional: true,
         custom: {
-            options: async (value) => {
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
                 for (const item of value) {
-                    const id = await database_service_1.default.SalaryPortion.findOne({ _id: new mongodb_1.ObjectId(item.id_phan_luong) });
+                    const id = yield database_service_1.default.SalaryPortion.findOne({ _id: new mongodb_1.ObjectId(item.id_phan_luong) });
                     if (!id)
                         throw new Error(`Salary not found!!!`);
                     if (item.so_tien < 0) {
@@ -693,7 +704,7 @@ exports.updateSalaryStructureValidator = (0, validation_1.validate)((0, express_
                     }
                 }
                 return true;
-            }
+            })
         }
     },
     hinh_thuc_chi_tra: {
@@ -702,16 +713,16 @@ exports.updateSalaryStructureValidator = (0, validation_1.validate)((0, express_
         },
         optional: true,
         custom: {
-            options: async (value) => {
-                const ht = await database_service_1.default.FormOfPayment.findOne({ _id: new mongodb_1.ObjectId(value.id_hinh_thuc) });
-                const tk = await database_service_1.default.PayMentAccount.findOne({ _id: new mongodb_1.ObjectId(value.id_tai_khoan_chi_tra) });
+            options: (value) => __awaiter(void 0, void 0, void 0, function* () {
+                const ht = yield database_service_1.default.FormOfPayment.findOne({ _id: new mongodb_1.ObjectId(value.id_hinh_thuc) });
+                const tk = yield database_service_1.default.PayMentAccount.findOne({ _id: new mongodb_1.ObjectId(value.id_tai_khoan_chi_tra) });
                 if (!ht || !tk)
                     throw new Error('Không thể tìm thấy id hình thưc hoặc id tài khoản chi trả!!!');
                 if (!value.id_hinh_thuc || !value.id_tai_khoan_chi_tra) {
                     throw new Error(messages_2.SALARY_STRUCTURE_MESSAGE.PAYMENT_METHOD_IS_REQUIRED);
                 }
                 return true;
-            }
+            })
         }
     },
     deleted: {

@@ -37,9 +37,11 @@ exports.PostLogoutUser = PostLogoutUser;
 const PatchEditUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const data = Object.assign({}, req.body);
+    console.log(data.password);
     if (data.password) {
         data.password = (0, crypto_1.hashPassword)(data.password);
     }
+    console.log(data);
     const result = yield users_service_1.default.Update(id, data);
     console.log(result);
     return res.status(httpStatus_1.default.OK).json({ success: true });

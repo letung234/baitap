@@ -364,7 +364,7 @@ export const createUserValidator = validate(
       },
       custom: {
         options: async (value) => {
-          const user = await databaseService.User.findOne({ email: value })
+          const user = await databaseService.User.findOne({ email: value, deleted: false })
           if (user) {
             throw new Error(MESSAGES.EMAIL_ALREADY_EXISTS)
           }
@@ -443,7 +443,11 @@ export const updateUserValidator = validate(
       custom: {
         options: async (value, { req }) => {
           const userId = req.params?.id
-          const user = await databaseService.User.findOne({ email: value, _id: { $ne: new ObjectId(userId) } })
+          const user = await databaseService.User.findOne({
+            email: value,
+            _id: { $ne: new ObjectId(userId) },
+            deleted: false
+          })
           if (user) {
             throw new Error('Email đã tồn tại.')
           }

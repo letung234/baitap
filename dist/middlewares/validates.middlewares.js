@@ -360,7 +360,7 @@ exports.createUserValidator = (0, validation_1.validate)((0, express_validator_1
         },
         custom: {
             options: (value) => __awaiter(void 0, void 0, void 0, function* () {
-                const user = yield database_service_1.default.User.findOne({ email: value });
+                const user = yield database_service_1.default.User.findOne({ email: value, deleted: false });
                 if (user) {
                     throw new Error(messages_2.MESSAGES.EMAIL_ALREADY_EXISTS);
                 }
@@ -437,7 +437,11 @@ exports.updateUserValidator = (0, validation_1.validate)((0, express_validator_1
             options: (value_1, _a) => __awaiter(void 0, [value_1, _a], void 0, function* (value, { req }) {
                 var _b;
                 const userId = (_b = req.params) === null || _b === void 0 ? void 0 : _b.id;
-                const user = yield database_service_1.default.User.findOne({ email: value, _id: { $ne: new mongodb_1.ObjectId(userId) } });
+                const user = yield database_service_1.default.User.findOne({
+                    email: value,
+                    _id: { $ne: new mongodb_1.ObjectId(userId) },
+                    deleted: false
+                });
                 if (user) {
                     throw new Error('Email đã tồn tại.');
                 }

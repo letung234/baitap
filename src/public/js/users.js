@@ -75,7 +75,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         Validator.maxLength('#name', 255),
         Validator.isRequired('#email', 'Vui lòng nhập email của bạn'),
         Validator.isEmail('#email'),
-        Validator.isRequired('#role_id', 'Vui lòng chọn role của bạn')
+        Validator.isRequired('#role_id', 'Vui lòng chọn role của bạn'),
+        Validator.isPasswordUpdate('#password')
       ],
       onSubmit: async function (data) {
         const payload = {
@@ -84,7 +85,8 @@ document.addEventListener('DOMContentLoaded', async function () {
           role_id: data.role_id,
           is_active: data.is_active.includes('on')
         }
-
+        data.password && (payload.password = data.password)
+        console.log(payload)
         try {
           const url = window.location.pathname
           const segments = url.split('/')

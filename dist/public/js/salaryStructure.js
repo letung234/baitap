@@ -288,7 +288,7 @@ function rerenderUI(data) {
       tableBody.insertAdjacentHTML('beforeend', row)
     })
   } else {
-    tableBody.innerHTML = StringData('/api/salaryStructure/create')
+    tableBody.innerHTML = StringData('/salaryStructure/create')
   }
   const checkboxMulti = document.querySelector('[checkbox-multi]')
   const inputCheckAll = checkboxMulti.querySelector("input[name='checkall']")

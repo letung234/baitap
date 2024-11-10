@@ -24,9 +24,11 @@ export const PostLogoutUser = async (req: Request<any, any, UserPayload, any>, r
 export const PatchEditUsers = async (req: Request<any, any, UserPayload, any>, res: Response) => {
   const { id } = req.params
   const data = { ...req.body }
+  console.log(data.password)
   if (data.password) {
     data.password = hashPassword(data.password)
   }
+  console.log(data)
   const result = await UsersService.Update(id, data)
   console.log(result)
   return res.status(HTTP_STATUS.OK).json({ success: true })

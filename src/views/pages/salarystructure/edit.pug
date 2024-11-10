@@ -63,11 +63,13 @@ block main
               th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Hành động
           tbody
             each item, index in Salary.thu_nhap
-              tr
-                td(class="border-b border-gray-300 px-4 py-2") #{index + 1}
-                td(class="border-b border-gray-300 px-4 py-2" data-id=SalaryportionTN.find(c => c._id.toString() === item.id_phan_luong.toString())._id) #{SalaryportionTN.find(c => c._id.toString() === item.id_phan_luong.toString()).ten}
-                td(class="border-b border-gray-300 px-4 py-2" data-id=item.so_tien) #{item.so_tien}
-                td(class="border-b border-gray-300 px-4 py-2")
+              - const salaryPortion = SalaryportionTN.find(c => c._id.toString() === item.id_phan_luong.toString()) || null;
+              if salaryPortion
+                tr
+                  td(class="border-b border-gray-300 px-4 py-2") #{index + 1}
+                  td(class="border-b border-gray-300 px-4 py-2" data-id=salaryPortion._id) #{salaryPortion.ten}
+                  td(class="border-b border-gray-300 px-4 py-2" data-id=item.so_tien) #{item.so_tien}
+                  td(class="border-b border-gray-300 px-4 py-2")
                     button(type="button" class="text-red-500 hover:text-red-700" onclick=`removeRow(${index})`) Xóa
         div(class="mt-4")
           select(id="salaryportiontn" class="p-2 border border-gray-300 rounded-md w-1/2 mr-2")
@@ -90,11 +92,13 @@ block main
               th(class="border-b-2 border-gray-300 px-4 py-2 text-left") Hành động
           tbody
             each item, index in Salary.khau_tru
-              tr
-                td(class="border-b border-gray-300 px-4 py-2") #{index + 1}
-                td(class="border-b border-gray-300 px-4 py-2" data-id=SalaryportionKT.find(c => c._id.toString() === item.id_phan_luong.toString())._id) #{SalaryportionKT.find(c => c._id.toString() === item.id_phan_luong.toString()).ten}
-                td(class="border-b border-gray-300 px-4 py-2" data-id=item.so_tien) #{item.so_tien}
-                td(class="border-b border-gray-300 px-4 py-2")
+              - const salary = SalaryportionKT.find(c => c._id.toString() === item.id_phan_luong.toString()) || null;
+               if salary
+                tr
+                  td(class="border-b border-gray-300 px-4 py-2") #{index + 1}
+                  td(class="border-b border-gray-300 px-4 py-2" data-id=salary._id) #{salary.ten}
+                  td(class="border-b border-gray-300 px-4 py-2" data-id=item.so_tien) #{item.so_tien}
+                  td(class="border-b border-gray-300 px-4 py-2")
                     button(type="button" class="text-red-500 hover:text-red-700" onclick=`removeRow(${index})`) Xóa
 
         div(class="mt-4")

@@ -1056,6 +1056,35 @@ Validator.isPassword = function (selector) {
     }
   }
 }
+Validator.isPasswordUpdate = function (selector) {
+  return {
+    selector: selector,
+    test: function (value) {
+      if (!value) {
+        return undefined
+      }
+
+      if (typeof value !== 'string') {
+        return 'Mật khẩu phải là một chuỗi'
+      }
+
+      if (value.length < 6 || value.length > 50) {
+        return 'Mật khẩu phải từ 6 đến 50 ký tự'
+      }
+
+      const hasLowercase = /[a-z]/.test(value)
+      const hasUppercase = /[A-Z]/.test(value)
+      const hasNumber = /[0-9]/.test(value)
+      const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(value)
+
+      if (!hasLowercase || !hasUppercase || !hasNumber || !hasSymbol) {
+        return 'Mật khẩu phải chứa ít nhất một chữ cái thường, một chữ hoa, một số, và một ký tự đặc biệt'
+      }
+
+      return undefined
+    }
+  }
+}
 
 Validator.isNumber = function (selector, message = 'Giá trị phải là một số hợp lệ') {
   return {

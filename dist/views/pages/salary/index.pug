@@ -66,13 +66,13 @@ block main
                   td(class="px-5 py-5 border-b border-gray-200 bg-white text-sm hidden md:table-cell")
                     p(class="text-gray-900")= item.ten
                   td(class="px-5 py-5 border-b border-gray-200 bg-white text-sm hidden md:table-cell")
-                    span(class="relative inline-block px-3 py-1 font-semibold text-${item.is_active ? 'blue' : 'gray'}-900 leading-tight")
+                    span(class=`relative inline-block px-3 py-1 font-semibold text-${item.is_active ? 'blue' : 'gray'}-900 leading-tight`)
                       span(aria-hidden, class=`absolute inset-0 bg-${item.is_active ? 'blue' : 'gray'}-200 opacity-50 rounded-full`)
                       span(class="relative")= item.is_active ? "Đã bật" : "Vô hiệu"
                   td(class="px-5 py-5 border-b border-gray-200 bg-white text-sm hidden md:table-cell")
                     p(class="text-gray-900")= item.ten.split(" ").map(word => word[0]).join("")
                   td(class="px-5 py-5 border-b border-gray-200 bg-white text-sm hidden md:table-cell")
-                    p(class="text-gray-900")= item.mo_ta
+                    p(class="text-gray-900") !{item.mo_ta}
                   td(class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right hidden md:table-cell")
                     p(class="text-gray-900")= new Date(item.ngay_tao).toLocaleDateString("vi-VN")
         #pagination(class="flex justify-center mt-4")

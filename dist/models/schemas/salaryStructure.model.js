@@ -1,6 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class SalaryStructure {
+    _id;
+    ten;
+    id_cong_ty;
+    status;
+    chu_ky_phat_luong;
+    don_vi_tien_te;
+    thu_nhap;
+    khau_tru;
+    hinh_thuc_chi_tra;
+    deleted;
+    created_at;
+    updated_at;
     constructor(structure) {
         this._id = structure._id;
         this.ten = structure.ten;

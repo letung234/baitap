@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -51,9 +42,9 @@ const initFolder = () => {
     });
 };
 exports.initFolder = initFolder;
-const handleUploadImage = (req) => __awaiter(void 0, void 0, void 0, function* () {
+const handleUploadImage = async (req) => {
     console.log(1);
-    const formidable = (yield Promise.resolve().then(() => __importStar(require('formidable')))).default;
+    const formidable = (await Promise.resolve().then(() => __importStar(require('formidable')))).default;
     const form = formidable({
         uploadDir: dir_1.UPLOAD_IMAGE_TEMP_DIR,
         maxFiles: 4,
@@ -61,7 +52,7 @@ const handleUploadImage = (req) => __awaiter(void 0, void 0, void 0, function* (
         maxFileSize: 3000 * 1024, // 3mb
         maxTotalFileSize: 300 * 1024 * 4,
         filter: function ({ name, originalFilename, mimetype }) {
-            const valid = name === 'image' && Boolean(mimetype === null || mimetype === void 0 ? void 0 : mimetype.includes('image/'));
+            const valid = name === 'image' && Boolean(mimetype?.includes('image/'));
             if (!valid) {
                 form.emit('error', new Error('File type is not valid'));
             }
@@ -80,14 +71,14 @@ const handleUploadImage = (req) => __awaiter(void 0, void 0, void 0, function* (
             resolve(files.image);
         });
     });
-});
+};
 exports.handleUploadImage = handleUploadImage;
 // Cách xử lý khi upload video và encode
 // Có 2 giai đoạn
 // Upload video: Upload video thành công thì resolve về cho người dùng
 // Encode video: Khai báo thêm 1 url endpoint để check xem cái video đó đã encode xong chưa
-const handleUploadVideo = (req) => __awaiter(void 0, void 0, void 0, function* () {
-    const formidable = (yield Promise.resolve().then(() => __importStar(require('formidable')))).default;
+const handleUploadVideo = async (req) => {
+    const formidable = (await Promise.resolve().then(() => __importStar(require('formidable')))).default;
     // Cách để có được định dạng idname/idname.mp4
     // ✅Cách 1: Tạo unique id cho video ngay từ đầu
     // ❌Cách 2: Đợi video upload xong rồi tạo folder, move video vào
@@ -99,7 +90,7 @@ const handleUploadVideo = (req) => __awaiter(void 0, void 0, void 0, function* (
         maxFiles: 1,
         maxFileSize: 50 * 1024 * 1024, // 50MB
         filter: function ({ name, originalFilename, mimetype }) {
-            const valid = name === 'video' && Boolean((mimetype === null || mimetype === void 0 ? void 0 : mimetype.includes('mp4')) || (mimetype === null || mimetype === void 0 ? void 0 : mimetype.includes('quicktime')));
+            const valid = name === 'video' && Boolean(mimetype?.includes('mp4') || mimetype?.includes('quicktime'));
             if (!valid) {
                 form.emit('error', new Error('File type is not valid'));
             }
@@ -129,7 +120,7 @@ const handleUploadVideo = (req) => __awaiter(void 0, void 0, void 0, function* (
             resolve(files.video);
         });
     });
-});
+};
 exports.handleUploadVideo = handleUploadVideo;
 const getNameFromFullname = (fullname) => {
     const namearr = fullname.split('.');

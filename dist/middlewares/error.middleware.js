@@ -9,8 +9,7 @@ const httpStatus_1 = __importDefault(require("../constants/httpStatus"));
 const Errors_1 = require("../models/Errors");
 const lodash_2 = require("lodash");
 const defaultErrorHandler = (err, req, res, next) => {
-    var _a;
-    const isApiRequest = req.xhr || ((_a = req.headers.accept) === null || _a === void 0 ? void 0 : _a.includes('application/json')) || !(0, lodash_2.isEmpty)(req.body);
+    const isApiRequest = req.xhr || req.headers.accept?.includes('application/json') || !(0, lodash_2.isEmpty)(req.body);
     if (err instanceof Errors_1.ErrorWithStatus) {
         if (isApiRequest) {
             return res.status(err.status).json((0, lodash_1.omit)(err, ['status']));
@@ -24,9 +23,8 @@ const defaultErrorHandler = (err, req, res, next) => {
     }
     const finalError = {};
     Object.getOwnPropertyNames(err).forEach((key) => {
-        var _a, _b;
-        if (!((_a = Object.getOwnPropertyDescriptor(err, key)) === null || _a === void 0 ? void 0 : _a.configurable) ||
-            !((_b = Object.getOwnPropertyDescriptor(err, key)) === null || _b === void 0 ? void 0 : _b.writable)) {
+        if (!Object.getOwnPropertyDescriptor(err, key)?.configurable ||
+            !Object.getOwnPropertyDescriptor(err, key)?.writable) {
             return;
         }
         finalError[key] = err[key];

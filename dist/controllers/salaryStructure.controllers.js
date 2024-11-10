@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -18,18 +9,18 @@ const enums_1 = require("../constants/enums");
 const mongodb_1 = require("mongodb");
 const dir_1 = require("../constants/dir");
 // [GET] /salarystructure/create
-const GetCreateController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const company = yield database_service_1.default.Company.find({}).toArray();
-    const formofpayment = yield database_service_1.default.FormOfPayment.find({}).toArray();
-    const SalaryportionTN = yield database_service_1.default.SalaryPortion.find({
+const GetCreateController = async (req, res) => {
+    const company = await database_service_1.default.Company.find({}).toArray();
+    const formofpayment = await database_service_1.default.FormOfPayment.find({}).toArray();
+    const SalaryportionTN = await database_service_1.default.SalaryPortion.find({
         deleted: false,
         loai: enums_1.salaryType.ThuNhap
     }).toArray();
-    const SalaryportionKT = yield database_service_1.default.SalaryPortion.find({
+    const SalaryportionKT = await database_service_1.default.SalaryPortion.find({
         deleted: false,
         loai: enums_1.salaryType.KhauTru
     }).toArray();
-    const paymentAccount = yield database_service_1.default.PayMentAccount.find({}).toArray();
+    const paymentAccount = await database_service_1.default.PayMentAccount.find({}).toArray();
     console.log(paymentAccount);
     console.log(formofpayment);
     console.log(company);
@@ -41,12 +32,12 @@ const GetCreateController = (req, res) => __awaiter(void 0, void 0, void 0, func
         SalaryportionKT,
         paymentAccount
     });
-});
+};
 exports.GetCreateController = GetCreateController;
 // [GET] /salarystructure
-const GetIndexController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const countProducts = yield database_service_1.default.SalaryStructure.countDocuments({ deleted: false });
-    const filterId = yield database_service_1.default.SalaryStructure.find({ deleted: false }).project({ _id: 1, ten: 1 }).toArray();
+const GetIndexController = async (req, res) => {
+    const countProducts = await database_service_1.default.SalaryStructure.countDocuments({ deleted: false });
+    const filterId = await database_service_1.default.SalaryStructure.find({ deleted: false }).project({ _id: 1, ten: 1 }).toArray();
     const filter_by = [
         {
             name: '_id',
@@ -78,7 +69,7 @@ const GetIndexController = (req, res) => __awaiter(void 0, void 0, void 0, funct
             operators: ['>', '<', '=']
         }
     ];
-    const salaryStructure = yield database_service_1.default.SalaryStructure.find({ deleted: false }).limit(dir_1.limmit).toArray();
+    const salaryStructure = await database_service_1.default.SalaryStructure.find({ deleted: false }).limit(dir_1.limmit).toArray();
     res.render('pages/salarystructure/index', {
         pageTitle: 'Cơ cấu lương',
         salaryStructure,
@@ -86,23 +77,23 @@ const GetIndexController = (req, res) => __awaiter(void 0, void 0, void 0, funct
         limit: dir_1.limmit,
         filter_by
     });
-});
+};
 exports.GetIndexController = GetIndexController;
 // [GET] /salarystructure/edit/:id
-const GetEditController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const GetEditController = async (req, res) => {
     const id = req.params.id;
-    const company = yield database_service_1.default.Company.find({}).toArray();
-    const formofpayment = yield database_service_1.default.FormOfPayment.find({}).toArray();
-    const SalaryportionTN = yield database_service_1.default.SalaryPortion.find({
+    const company = await database_service_1.default.Company.find({}).toArray();
+    const formofpayment = await database_service_1.default.FormOfPayment.find({}).toArray();
+    const SalaryportionTN = await database_service_1.default.SalaryPortion.find({
         deleted: false,
         loai: enums_1.salaryType.ThuNhap
     }).toArray();
-    const SalaryportionKT = yield database_service_1.default.SalaryPortion.find({
+    const SalaryportionKT = await database_service_1.default.SalaryPortion.find({
         deleted: false,
         loai: enums_1.salaryType.KhauTru
     }).toArray();
-    const paymentAccount = yield database_service_1.default.PayMentAccount.find({}).toArray();
-    const salaryStructure = yield database_service_1.default.SalaryStructure.findOne({ deleted: false, _id: new mongodb_1.ObjectId(id) });
+    const paymentAccount = await database_service_1.default.PayMentAccount.find({}).toArray();
+    const salaryStructure = await database_service_1.default.SalaryStructure.findOne({ deleted: false, _id: new mongodb_1.ObjectId(id) });
     if (salaryStructure) {
         res.render('pages/salaryStructure/edit', {
             pageTitle: 'Chỉnh Sửa Phân Lương',
@@ -117,5 +108,5 @@ const GetEditController = (req, res) => __awaiter(void 0, void 0, void 0, functi
     else {
         res.render('page/error/404');
     }
-});
+};
 exports.GetEditController = GetEditController;

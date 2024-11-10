@@ -1,4 +1,7 @@
 /* eslint-disable no-undef */
+var exports = {
+  __esModule: true
+}
 import {
   Filter,
   toast,

@@ -1,4 +1,7 @@
 /* eslint-disable no-undef */
+var exports = {
+  __esModule: true
+}
 import { toast, Validator, confirmButton, updateErrorMessages } from './main.js'
 
 document.addEventListener('DOMContentLoaded', async function () {

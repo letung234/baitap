@@ -40,15 +40,8 @@ async function initTinyMCE() {
         }
       },
       setup: function (editor) {
-        // Thực hiện các hành động cần thiết khi người dùng thay đổi node
-        editor.on('NodeChange', function (e) {
-          // Có thể xử lý thêm các sự kiện thay đổi node nếu cần
-        })
-
-        // Thêm một nút xóa ảnh vào thanh công cụ
-        editor.ui.registry.addButton('deleteImage', {
-          text: 'Delete Image',
-          onAction: async function () {
+        editor.on('keydown', async function (e) {
+          if (e.key === 'Backspace') {
             const selectedNode = editor.selection.getNode()
             if (selectedNode.nodeName === 'IMG') {
               // Lấy ID ảnh từ metadata
@@ -74,14 +67,21 @@ async function initTinyMCE() {
               }
             }
           }
-        })
+        });
       },
+      
       toolbar: 'deleteImage', // Thêm nút xóa ảnh vào thanh công cụ
       init_instance_callback: function (editor) {
         resolve(editor) // Giải quyết Promise sau khi khởi tạo hoàn tất
       },
       error_callback: function (error) {
         reject(error) // Từ chối Promise nếu có lỗi
+      },
+      mobile: {
+        theme: 'silver', // Đảm bảo giao diện đơn giản cho di động
+        toolbar_mode: 'sliding', // Để thanh công cụ cuộn nếu không đủ chỗ
+        toolbar: 'undo redo | bold italic | bullist numlist | link image code', // Toolbar đơn giản hơn
+        menubar: false // Ẩn menubar trên di động để tiết kiệm không gian
       }
     })
   })

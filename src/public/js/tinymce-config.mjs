@@ -32,6 +32,7 @@ async function initTinyMCE() {
             blobInfo.imageId = imageId
             return data.location
           } else {
+            console.log(response)
             throw new Error('Network response was not ok.')
           }
         } catch (error) {

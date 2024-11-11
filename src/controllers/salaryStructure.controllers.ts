@@ -88,7 +88,7 @@ export const GetEditController = async (req: Request, res: Response) => {
   const paymentAccount = await databaseService.PayMentAccount.find({}).toArray()
   const salaryStructure = await databaseService.SalaryStructure.findOne({ deleted: false, _id: new ObjectId(id) })
   if (salaryStructure) {
-    res.render('pages/salaryStructure/edit', {
+    res.render('pages/salarystructure/edit', {
       pageTitle: 'Chỉnh Sửa Phân Lương',
       Salary: salaryStructure,
       company,

@@ -101,7 +101,7 @@ const GetEditController = (req, res) => __awaiter(void 0, void 0, void 0, functi
     const paymentAccount = yield database_service_1.default.PayMentAccount.find({}).toArray();
     const salaryStructure = yield database_service_1.default.SalaryStructure.findOne({ deleted: false, _id: new mongodb_1.ObjectId(id) });
     if (salaryStructure) {
-        res.render('pages/salaryStructure/edit', {
+        res.render('pages/salarystructure/edit', {
             pageTitle: 'Chỉnh Sửa Phân Lương',
             Salary: salaryStructure,
             company,

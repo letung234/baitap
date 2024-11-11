@@ -7,6 +7,10 @@ const listFolderCopy = [{
   {
     sourceDirectory: 'src/public',
     targetDirectory: 'dist/public'
+  },
+  {
+    sourceDirectory: 'src/uploads',
+    targetDirectory: 'dist/uploads'
   }
 ];
 

@@ -69,8 +69,6 @@ async function initTinyMCE() {
           }
         });
       },
-      
-      toolbar: 'deleteImage', // Thêm nút xóa ảnh vào thanh công cụ
       init_instance_callback: function (editor) {
         resolve(editor) // Giải quyết Promise sau khi khởi tạo hoàn tất
       },

@@ -12,9 +12,8 @@ import * as moment from 'moment'
 import { PATH_ADMIN } from '~/constants/dir'
 import { defaultErrorHandler } from '~/middlewares/error.middleware'
 import { envConfig } from '~/constants/config'
-import { initFolder } from './utils/file'
 import authenticateToken from '~/middlewares/authenticateToken'
-initFolder()
+
 // Kết nối với cơ sở dữ liệu
 databaseService.connect()
 

@@ -7,8 +7,6 @@ exports.EntityError = exports.ErrorWithStatus = void 0;
 const httpStatus_1 = __importDefault(require("../constants/httpStatus"));
 const messages_1 = require("../constants/messages");
 class ErrorWithStatus {
-    message;
-    status;
     constructor({ message, status }) {
         this.message = message;
         this.status = status;
@@ -16,7 +14,6 @@ class ErrorWithStatus {
 }
 exports.ErrorWithStatus = ErrorWithStatus;
 class EntityError extends ErrorWithStatus {
-    errors;
     constructor({ message = messages_1.MESSAGES.VALIDATION_ERROR, errors }) {
         super({ message, status: httpStatus_1.default.UNPROCESSABLE_ENTITY });
         this.errors = errors;

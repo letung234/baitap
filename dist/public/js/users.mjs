@@ -1,8 +1,10 @@
 /* eslint-disable no-undef */
-var exports = {
-  __esModule: true
-}
-import { toast, Validator, confirmButton, updateErrorMessages } from './main.js'
+import {
+  toast,
+  Validator,
+  confirmButton,
+  updateErrorMessages
+} from './main.mjs'
 
 document.addEventListener('DOMContentLoaded', async function () {
   const formCreate = document.querySelector('#create_user')

@@ -6,7 +6,7 @@
     "dev": "cross-env NODE_ENV=development npx nodemon",
     "dev:stag": "NODE_ENV=staging npx nodemon",
     "dev:prod": "NODE_ENV=production npx nodemon",
-    "build": "rimraf ./dist && tsc && tsc-alias && node copy-dir.js",
+    "build": "rimraf ./dist && tsc && tsc-alias && node copy-dir.mjs",
     "start": "cross-env NODE_ENV=development node dist/index.js",
     "start:stag": "cross-env NODE_ENV=staging node dist/index.js",
     "start:prod": "cross-env NODE_ENV=production node dist/index.js",

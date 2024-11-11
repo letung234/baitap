@@ -12,5 +12,4 @@ SalaryStructureRouter.use(authenticateToken_1.default);
 SalaryStructureRouter.get('/', (0, handler_1.wrapRequestHandler)(salaryStructure_controllers_1.GetIndexController));
 SalaryStructureRouter.get('/create', (0, handler_1.wrapRequestHandler)(salaryStructure_controllers_1.GetCreateController));
 SalaryStructureRouter.get('/edit/:id', (0, handler_1.wrapRequestHandler)(salaryStructure_controllers_1.GetEditController));
-// SalaryStructureRouter.get('/edit/:id', wrapRequestHandler(GetEditController))
 exports.default = SalaryStructureRouter;

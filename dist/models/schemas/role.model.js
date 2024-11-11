@@ -1,14 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Role {
-    _id;
-    title;
-    description;
-    permission;
-    deleted;
-    deletedAt;
-    createdAt;
-    updatedAt;
     constructor(role) {
         this._id = role._id;
         this.title = role.title;

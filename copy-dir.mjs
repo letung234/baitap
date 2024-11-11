@@ -1,7 +1,6 @@
-const fs = require('fs-extra')
+import fs from 'fs-extra';
 
-const listFolderCopy = [
-  {
+const listFolderCopy = [{
     sourceDirectory: 'src/views',
     targetDirectory: 'dist/views'
   },
@@ -9,14 +8,14 @@ const listFolderCopy = [
     sourceDirectory: 'src/public',
     targetDirectory: 'dist/public'
   }
-]
+];
 
 listFolderCopy.forEach((item) => {
   fs.copy(item.sourceDirectory, item.targetDirectory)
     .then(() => {
-      console.log(`Sao chép thành công thư mục ${item.sourceDirectory} vào ${item.targetDirectory}`)
+      console.log(`Sao chép thành công thư mục ${item.sourceDirectory} vào ${item.targetDirectory}`);
     })
     .catch((err) => {
-      console.error(`Lỗi sao chép thư mục ${item.sourceDirectory}:`, err)
-    })
-})
+      console.error(`Lỗi sao chép thư mục ${item.sourceDirectory}:`, err);
+    });
+});

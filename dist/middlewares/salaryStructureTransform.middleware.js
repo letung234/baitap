@@ -3,12 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongodb_1 = require("mongodb");
 const normalizeDataMiddleware = (req, res, next) => {
     const data = req.body;
-    // Kiểm tra xem dữ liệu có tồn tại hay không
     if (!data) {
         return res.status(400).json({ message: 'No data provided.' });
     }
     try {
-        // Chuẩn hóa dữ liệu
         const normalizedData = {
             ten: data.ten,
             id_cong_ty: new mongodb_1.ObjectId(data.id_cong_ty),
@@ -28,13 +26,10 @@ const normalizeDataMiddleware = (req, res, next) => {
                 id_tai_khoan_chi_tra: new mongodb_1.ObjectId(data['hinh_thuc_chi_tra[id_tai_khoan_chi_tra]'])
             }
         };
-        // Gán normalizedData vào req.body để sử dụng ở các middleware hoặc route tiếp theo
         req.body = normalizedData;
-        // Tiếp tục với middleware tiếp theo
         next();
     }
     catch (error) {
-        // Xử lý lỗi nếu có vấn đề trong quá trình chuẩn hóa
         return res.status(500).json({ message: 'Error normalizing data', error: error.message });
     }
 };

@@ -1,7 +1,4 @@
 /* eslint-disable no-undef */
-var exports = {
-  __esModule: true
-}
 import {
   Filter,
   toast,
@@ -16,7 +13,7 @@ import {
   insertRow,
   getTableData,
   updateErrorMessages
-} from './main.js'
+} from './main.mjs'
 let editRowIndex = -1
 
 insertRow('incomeTable', 'salaryportiontn', 'sumtn', 'addRowButtontn', editRowIndex)
@@ -166,8 +163,7 @@ const itemsPerPage = limitElement ? parseInt(limitElement.getAttribute('limit'),
 let currentPage = 1
 let totalPages = Math.ceil(totalItems / itemsPerPage)
 let ispages = -1
-Filter(
-  {
+Filter({
     name: '#filterbyname',
     salaryType: '#filterbysalarytype'
   },
@@ -175,8 +171,7 @@ Filter(
   currentPage
 )
 if (document.getElementById('pagination')) {
-  displayPagination(
-    {
+  displayPagination({
       name: '#filterbyname',
       salaryType: '#filterbysalarytype'
     },
@@ -185,8 +180,7 @@ if (document.getElementById('pagination')) {
     totalPages
   )
 }
-filterSelect(
-  {
+filterSelect({
     name: '#filterbyname',
     salaryType: '#filterbysalarytype'
   },
@@ -221,8 +215,7 @@ async function ApiFilterSalaryStructure(data) {
     // Phân trang lại
     currentPage = result.currentPage
     totalPages = result.totalPages
-    displayPagination(
-      {
+    displayPagination({
         name: '#filterbyname',
         salaryType: '#filterbysalarytype'
       },
@@ -302,8 +295,7 @@ function rerenderUI(data) {
       const countChecked = checkboxMulti.querySelectorAll("input[name='id']:checked").length
       inputCheckAll.checked = countChecked === inputsID.length
       // Cập nhật hành động khi có sự thay đổi
-      updateAction(
-        {
+      updateAction({
           name: '#filterbyname',
           salaryType: '#filterbysalarytype'
         },
@@ -316,8 +308,7 @@ function rerenderUI(data) {
     })
   })
 }
-checkboxMulti(
-  {
+checkboxMulti({
     name: '#filterbyname',
     salaryType: '#filterbysalarytype'
   },
@@ -331,8 +322,7 @@ checkboxMulti(
 const applyBtn = document.getElementById('applyBtn')
 if (applyBtn) {
   applyBtn.addEventListener('click', async function () {
-    await handlefilter(
-      {
+    await handlefilter({
         name: '#filterbyname',
         salaryType: '#filterbysalarytype'
       },
@@ -344,8 +334,7 @@ if (applyBtn) {
 const filterDiv = document.getElementById('toggleincrease_or_decrease')
 if (filterDiv) {
   filterDiv.querySelector('svg').addEventListener('click', async function () {
-    await handlefilter(
-      {
+    await handlefilter({
         name: '#filterbyname',
         salaryType: '#filterbysalarytype'
       },
@@ -357,8 +346,7 @@ if (filterDiv) {
 const filterSl = document.getElementById('filterSelect')
 if (filterSl) {
   filterSl.addEventListener('change', async function () {
-    await handlefilter(
-      {
+    await handlefilter({
         name: '#filterbyname',
         salaryType: '#filterbysalarytype'
       },
@@ -371,8 +359,7 @@ if (filterSl) {
 const filterbysalarytype = document.querySelector('#filterbysalarytype')
 if (filterbysalarytype) {
   filterbysalarytype.addEventListener('click', async function () {
-    await handlefilter(
-      {
+    await handlefilter({
         name: '#filterbyname',
         salaryType: '#filterbysalarytype'
       },
@@ -388,8 +375,7 @@ if (filterbyname) {
     clearTimeout(debounceTimeout)
 
     debounceTimeout = setTimeout(async () => {
-      await handlefilter(
-        {
+      await handlefilter({
           name: '#filterbyname',
           salaryType: '#filterbysalarytype'
         },
@@ -404,8 +390,7 @@ window.addEventListener('pageshow', async (event) => {
   if (event.persisted) {
     const filterbyname = document.querySelector('#filterbyname')
     if (filterbyname) {
-      await handlefilter(
-        {
+      await handlefilter({
           name: '#filterbyname',
           salaryType: '#filterbysalarytype'
         },

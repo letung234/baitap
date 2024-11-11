@@ -1,16 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class User {
-    _id;
-    name;
-    email;
-    role_id;
-    password;
-    is_active;
-    created_at;
-    updated_at;
-    deleted_at;
-    deleted;
     constructor(user) {
         this._id = user._id;
         this.name = user.name;

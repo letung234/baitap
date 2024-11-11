@@ -1,14 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class SalaryPortion {
-    _id;
-    ten;
-    loai;
-    mo_ta;
-    is_active;
-    tai_khoan_ke_toan;
-    deleted;
-    ngay_tao;
     constructor(portion) {
         this._id = portion._id;
         this.ten = portion.ten;

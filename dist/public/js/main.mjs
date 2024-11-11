@@ -1,7 +1,4 @@
 /* eslint-disable no-undef */
-var exports = {
-  __esModule: true
-}
 // StringData
 export function StringData(link) {
   return `

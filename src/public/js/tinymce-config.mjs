@@ -1,8 +1,5 @@
 /* eslint-disable no-dupe-keys */
 /* eslint-disable no-undef */
-var exports = {
-  __esModule: true
-}
 async function initTinyMCE() {
   return new Promise((resolve, reject) => {
     tinymce.init({
